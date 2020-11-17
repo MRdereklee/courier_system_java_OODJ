@@ -50,10 +50,6 @@
           <Color blue="ff" green="33" red="33" type="rgb"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="mouseDragged" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="jPanel1MouseDragged"/>
-        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel1MousePressed"/>
-      </Events>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -202,9 +198,6 @@
                   <Dimension value="[59, 23]"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JPasswordField" name="txtboxPassword">
               <Properties>
