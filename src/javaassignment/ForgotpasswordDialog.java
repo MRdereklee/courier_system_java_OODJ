@@ -6,20 +6,19 @@
 package javaassignment;
 
 import java.awt.Color;
-import javax.swing.JDialog;
 
 /**
  *
  * @author sengk
  */
-public class Login extends javax.swing.JFrame {
+public class ForgotpasswordDialog extends javax.swing.JDialog {
 
     /**
-     * Creates new form Login
+     * Creates new form ForgotpasswordDialog
      */
-    public Login() {
+    public ForgotpasswordDialog(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        setLocationRelativeTo(null);
     }
 
     /**
@@ -33,38 +32,23 @@ public class Login extends javax.swing.JFrame {
 
         jPanelTop = new javax.swing.JPanel();
         jPanelMain = new javax.swing.JPanel();
-        btnExit = new javax.swing.JButton();
         txtboxUsername = new javax.swing.JTextField();
-        btnLogin = new javax.swing.JButton();
+        btnChangePassword = new javax.swing.JButton();
         txtboxPassword = new javax.swing.JPasswordField();
-        btnFgtPassword = new javax.swing.JLabel();
         lblLogin = new javax.swing.JLabel();
-        chbxShowPassword = new javax.swing.JCheckBox();
+        txtboxConfirmPasswrord = new javax.swing.JPasswordField();
+        btnCancel = new javax.swing.JButton();
         lblLogo = new javax.swing.JLabel();
         lblCompanyName = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(0, 2000));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
-        setResizable(false);
 
         jPanelTop.setBackground(new java.awt.Color(255, 204, 102));
         jPanelTop.setForeground(new java.awt.Color(51, 51, 255));
+        jPanelTop.setPreferredSize(new java.awt.Dimension(735, 354));
 
         jPanelMain.setBackground(new java.awt.Color(255, 255, 255));
-
-        btnExit.setBackground(new java.awt.Color(0, 0, 0));
-        btnExit.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnExit.setForeground(java.awt.Color.white);
-        btnExit.setText("EXIT");
-        btnExit.setBorderPainted(false);
-        btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnExit.setPreferredSize(new java.awt.Dimension(69, 23));
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
 
         txtboxUsername.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtboxUsername.setForeground(java.awt.Color.gray);
@@ -78,22 +62,22 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        btnLogin.setBackground(new java.awt.Color(0, 0, 0));
-        btnLogin.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin.setText("LOGIN");
-        btnLogin.setBorderPainted(false);
-        btnLogin.setMaximumSize(new java.awt.Dimension(59, 23));
-        btnLogin.setMinimumSize(new java.awt.Dimension(59, 23));
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnChangePassword.setBackground(new java.awt.Color(0, 0, 0));
+        btnChangePassword.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnChangePassword.setForeground(new java.awt.Color(255, 255, 255));
+        btnChangePassword.setText("CHANGE PASSWORD");
+        btnChangePassword.setBorderPainted(false);
+        btnChangePassword.setMaximumSize(new java.awt.Dimension(59, 23));
+        btnChangePassword.setMinimumSize(new java.awt.Dimension(59, 23));
+        btnChangePassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
+                btnChangePasswordActionPerformed(evt);
             }
         });
 
         txtboxPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtboxPassword.setForeground(java.awt.Color.gray);
-        txtboxPassword.setText("Enter the password...");
+        txtboxPassword.setText("Enter New Password");
         txtboxPassword.setEchoChar((char)0);
         txtboxPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -104,22 +88,32 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        btnFgtPassword.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnFgtPassword.setText("Forgot Password?");
-        btnFgtPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnFgtPassword.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnFgtPasswordMouseClicked(evt);
+        lblLogin.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
+        lblLogin.setText("Forgot Password");
+
+        txtboxConfirmPasswrord.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtboxConfirmPasswrord.setForeground(java.awt.Color.gray);
+        txtboxConfirmPasswrord.setText("Enter New Password");
+        txtboxConfirmPasswrord.setEchoChar((char)0);
+        txtboxConfirmPasswrord.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtboxConfirmPasswrordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtboxConfirmPasswrordFocusLost(evt);
             }
         });
 
-        lblLogin.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
-        lblLogin.setText("Login");
-
-        chbxShowPassword.setText("Show Password");
-        chbxShowPassword.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setBackground(new java.awt.Color(0, 0, 0));
+        btnCancel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancel.setText("CANCEL");
+        btnCancel.setBorderPainted(false);
+        btnCancel.setMaximumSize(new java.awt.Dimension(59, 23));
+        btnCancel.setMinimumSize(new java.awt.Dimension(59, 23));
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbxShowPasswordActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -130,42 +124,37 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanelMainLayout.createSequentialGroup()
                 .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelMainLayout.createSequentialGroup()
-                        .addGap(324, 324, 324)
-                        .addComponent(lblLogin))
-                    .addGroup(jPanelMainLayout.createSequentialGroup()
-                        .addGap(316, 316, 316)
-                        .addComponent(btnFgtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelMainLayout.createSequentialGroup()
                         .addGap(203, 203, 203)
-                        .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtboxUsername)
-                            .addGroup(jPanelMainLayout.createSequentialGroup()
-                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(108, 108, 108)
-                                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtboxPassword))
-                        .addGap(18, 18, 18)
-                        .addComponent(chbxShowPassword)))
-                .addContainerGap(85, Short.MAX_VALUE))
+                        .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtboxUsername, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtboxPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                            .addComponent(txtboxConfirmPasswrord)))
+                    .addGroup(jPanelMainLayout.createSequentialGroup()
+                        .addGap(284, 284, 284)
+                        .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnChangePassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanelMainLayout.createSequentialGroup()
+                        .addGap(246, 246, 246)
+                        .addComponent(lblLogin)))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
         jPanelMainLayout.setVerticalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap()
                 .addComponent(lblLogin)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtboxUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtboxPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtboxConfirmPasswrord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtboxPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chbxShowPassword))
-                .addGap(18, 18, 18)
-                .addComponent(btnFgtPassword)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addComponent(btnChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-in-transit-64.png"))); // NOI18N
@@ -177,13 +166,13 @@ public class Login extends javax.swing.JFrame {
         jPanelTop.setLayout(jPanelTopLayout);
         jPanelTopLayout.setHorizontalGroup(
             jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanelTopLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(lblLogo)
                 .addGap(18, 18, 18)
                 .addComponent(lblCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(jPanelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanelTopLayout.setVerticalGroup(
             jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,37 +186,27 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jPanelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(205, 205, 205))
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelTop, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        //Confirmation box
-        
-        //Exit Application
-        System.exit(0);
-    }//GEN-LAST:event_btnExitActionPerformed
-
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        new Main().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtboxUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtboxUsernameFocusGained
         if ( txtboxUsername.getText().equals("Enter the username...")) {
@@ -237,12 +216,16 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtboxUsernameFocusGained
 
     private void txtboxUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtboxUsernameFocusLost
-        
+
         if ( txtboxUsername.getText().equals("")) {
             txtboxUsername.setText("Enter the username...");
             txtboxUsername.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_txtboxUsernameFocusLost
+
+    private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     private void txtboxPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtboxPasswordFocusGained
         String check_pass = new String(txtboxPassword.getPassword());
@@ -262,24 +245,17 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtboxPasswordFocusLost
 
-    private void chbxShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbxShowPasswordActionPerformed
-        String check_pass = new String(txtboxPassword.getPassword());
-        if (chbxShowPassword.isSelected() ) {
-            txtboxPassword.setEchoChar((char)0);
-        }
-        else if (!(chbxShowPassword.isSelected()) & (check_pass.equals("") | check_pass.equals("Enter the password...") ) ) {
-            txtboxPassword.setEchoChar((char)0);
-        }
-        else {
-            txtboxPassword.setEchoChar('\u25cf');
-        }
-    }//GEN-LAST:event_chbxShowPasswordActionPerformed
+    private void txtboxConfirmPasswrordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtboxConfirmPasswrordFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtboxConfirmPasswrordFocusGained
 
-    private void btnFgtPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFgtPasswordMouseClicked
-        //new ForgotpasswordFrame().setVisible(true);
-        
-        new ForgotpasswordDialog(this, true).setVisible(true);
-    }//GEN-LAST:event_btnFgtPasswordMouseClicked
+    private void txtboxConfirmPasswrordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtboxConfirmPasswrordFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtboxConfirmPasswrordFocusLost
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,35 +274,40 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ForgotpasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ForgotpasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ForgotpasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ForgotpasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
-                
+                ForgotpasswordDialog dialog = new ForgotpasswordDialog(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExit;
-    private javax.swing.JLabel btnFgtPassword;
-    private javax.swing.JButton btnLogin;
-    private javax.swing.JCheckBox chbxShowPassword;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnChangePassword;
     private javax.swing.JPanel jPanelMain;
     private javax.swing.JPanel jPanelTop;
     private javax.swing.JLabel lblCompanyName;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblLogo;
+    private javax.swing.JPasswordField txtboxConfirmPasswrord;
     private javax.swing.JPasswordField txtboxPassword;
     private javax.swing.JTextField txtboxUsername;
     // End of variables declaration//GEN-END:variables
