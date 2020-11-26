@@ -6,7 +6,10 @@
 package javaassignment;
 
 import java.awt.Color;
-import javax.swing.JDialog;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,11 +20,17 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    public static String user_name;
+    public static String role;
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        
     }
-
+    
+    int mouseX;
+    int mouseY;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,9 +43,9 @@ public class Login extends javax.swing.JFrame {
         jPanelTop = new javax.swing.JPanel();
         jPanelMain = new javax.swing.JPanel();
         btnExit = new javax.swing.JButton();
-        txtboxUsername = new javax.swing.JTextField();
+        txtUsername = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
-        txtboxPassword = new javax.swing.JPasswordField();
+        txtPassword = new javax.swing.JPasswordField();
         btnFgtPassword = new javax.swing.JLabel();
         lblLogin = new javax.swing.JLabel();
         chbxShowPassword = new javax.swing.JCheckBox();
@@ -50,6 +59,16 @@ public class Login extends javax.swing.JFrame {
 
         jPanelTop.setBackground(new java.awt.Color(255, 204, 102));
         jPanelTop.setForeground(new java.awt.Color(51, 51, 255));
+        jPanelTop.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanelTopMouseDragged(evt);
+            }
+        });
+        jPanelTop.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelTopMouseClicked(evt);
+            }
+        });
 
         jPanelMain.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -66,15 +85,15 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        txtboxUsername.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtboxUsername.setForeground(java.awt.Color.gray);
-        txtboxUsername.setText("Enter the username...");
-        txtboxUsername.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtUsername.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtUsername.setForeground(java.awt.Color.gray);
+        txtUsername.setText("Enter the username...");
+        txtUsername.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtboxUsernameFocusGained(evt);
+                txtUsernameFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtboxUsernameFocusLost(evt);
+                txtUsernameFocusLost(evt);
             }
         });
 
@@ -91,16 +110,16 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        txtboxPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtboxPassword.setForeground(java.awt.Color.gray);
-        txtboxPassword.setText("Enter the password...");
-        txtboxPassword.setEchoChar((char)0);
-        txtboxPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtPassword.setForeground(java.awt.Color.gray);
+        txtPassword.setText("Enter the password...");
+        txtPassword.setEchoChar((char)0);
+        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtboxPasswordFocusGained(evt);
+                txtPasswordFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtboxPasswordFocusLost(evt);
+                txtPasswordFocusLost(evt);
             }
         });
 
@@ -138,12 +157,12 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanelMainLayout.createSequentialGroup()
                         .addGap(203, 203, 203)
                         .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtboxUsername)
+                            .addComponent(txtUsername)
                             .addGroup(jPanelMainLayout.createSequentialGroup()
                                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(108, 108, 108)
                                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtboxPassword))
+                            .addComponent(txtPassword))
                         .addGap(18, 18, 18)
                         .addComponent(chbxShowPassword)))
                 .addContainerGap(85, Short.MAX_VALUE))
@@ -154,10 +173,10 @@ public class Login extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(lblLogin)
                 .addGap(18, 18, 18)
-                .addComponent(txtboxUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtboxPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chbxShowPassword))
                 .addGap(18, 18, 18)
                 .addComponent(btnFgtPassword)
@@ -219,67 +238,147 @@ public class Login extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         //Confirmation box
+        int confirmation = JOptionPane.YES_OPTION;
+        if (JOptionPane.showConfirmDialog(rootPane, "Are you sure you want to quit?", "Confirmation Quit", confirmation) == JOptionPane.YES_OPTION) {
+            //Exit Application
+            System.exit(0);
+        }
         
-        //Exit Application
-        System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        new Main().setVisible(true);
-        this.dispose();
+        String username = txtUsername.getText();
+        String password = new String(txtPassword.getPassword());
+        try {
+            File adminFile = new File("Admin.txt");
+            Scanner sc_admin = new Scanner(adminFile);
+            Boolean found = false;
+           
+            while (sc_admin.hasNext()) {
+               String temp = sc_admin.nextLine();
+               String[] tempArr = temp.split(";");
+               if (username.equals(tempArr[1]) && password.equals(tempArr[2])) {
+                   user_name = tempArr[1];
+                   role = "Admin";
+                   found = true;
+                   JOptionPane.showMessageDialog(rootPane, "Welcome Admin, " +user_name, "Login Successful", JOptionPane.INFORMATION_MESSAGE );
+                   new MainAdmin().setVisible(true);
+                   this.dispose();
+                   sc_admin.close();
+                   break;
+               }
+           }
+            
+            File staffFile = new File("Staff.txt");
+            Scanner sc_staff = new Scanner(staffFile);
+           
+            while (sc_staff.hasNext()) {
+               String temp = sc_staff.nextLine();
+               String[] tempArr = temp.split(";");
+               if (username.equals(tempArr[1]) && password.equals(tempArr[2])) {
+                   user_name = tempArr[1];
+                   role = "Staff";
+                   found = true;
+                   JOptionPane.showMessageDialog(rootPane, "Welcome Staff, " +user_name, "Login Successful", JOptionPane.INFORMATION_MESSAGE );
+                   new MainAdmin().setVisible(true);
+                   this.dispose();
+                   sc_staff.close();
+                   break;
+               }
+           }
+            
+            
+            File driverFile = new File("Driver.txt");
+            Scanner sc_driver = new Scanner(driverFile);
+           
+            while (sc_driver.hasNext()) {
+               String temp = sc_driver.nextLine();
+               String[] tempArr = temp.split(";");
+               if (username.equals(tempArr[1]) && password.equals(tempArr[2])) {
+                   user_name = tempArr[1];
+                   role = "Driver";
+                   found = true;
+                   JOptionPane.showMessageDialog(rootPane, "Welcome Driver,  " +user_name, "Login Successful", JOptionPane.INFORMATION_MESSAGE );
+                   new MainStaff().setVisible(true);
+                   this.dispose();
+                   sc_driver.close();
+                   break;
+               }
+           }
+          
+           if (!found) {
+                JOptionPane.showMessageDialog(rootPane, "Incorrect Username or Password", "Unable to login", JOptionPane.ERROR_MESSAGE);
+                txtUsername.grabFocus();
+                txtPassword.setText("");
+           }
+        }
+        catch (FileNotFoundException ex) {
+            
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void txtboxUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtboxUsernameFocusGained
-        if ( txtboxUsername.getText().equals("Enter the username...")) {
-            txtboxUsername.setText("");
-            txtboxUsername.setForeground(Color.BLACK);
+    private void txtUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsernameFocusGained
+        if ( txtUsername.getText().equals("Enter the username...")) {
+            txtUsername.setText("");
+            txtUsername.setForeground(Color.BLACK);
         }
-    }//GEN-LAST:event_txtboxUsernameFocusGained
+    }//GEN-LAST:event_txtUsernameFocusGained
 
-    private void txtboxUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtboxUsernameFocusLost
+    private void txtUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsernameFocusLost
         
-        if ( txtboxUsername.getText().equals("")) {
-            txtboxUsername.setText("Enter the username...");
-            txtboxUsername.setForeground(Color.GRAY);
+        if ( txtUsername.getText().equals("")) {
+            txtUsername.setText("Enter the username...");
+            txtUsername.setForeground(Color.GRAY);
         }
-    }//GEN-LAST:event_txtboxUsernameFocusLost
+    }//GEN-LAST:event_txtUsernameFocusLost
 
-    private void txtboxPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtboxPasswordFocusGained
-        String check_pass = new String(txtboxPassword.getPassword());
+    private void txtPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusGained
+        String check_pass = new String(txtPassword.getPassword());
         if ( check_pass.equals("Enter the password...")) {
-            txtboxPassword.setText("");
-            txtboxPassword.setEchoChar('\u25cf');
-            txtboxPassword.setForeground(Color.BLACK);
+            txtPassword.setText("");
+            txtPassword.setEchoChar('\u25cf');
+            txtPassword.setForeground(Color.BLACK);
         }
-    }//GEN-LAST:event_txtboxPasswordFocusGained
+    }//GEN-LAST:event_txtPasswordFocusGained
 
-    private void txtboxPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtboxPasswordFocusLost
-        String check_pass = new String(txtboxPassword.getPassword());
+    private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
+        String check_pass = new String(txtPassword.getPassword());
         if ( check_pass.equals("")) {
-            txtboxPassword.setText("Enter the password...");
-            txtboxPassword.setEchoChar((char)0);
-            txtboxPassword.setForeground(Color.GRAY);
+            txtPassword.setText("Enter the password...");
+            txtPassword.setEchoChar((char)0);
+            txtPassword.setForeground(Color.GRAY);
         }
-    }//GEN-LAST:event_txtboxPasswordFocusLost
+    }//GEN-LAST:event_txtPasswordFocusLost
 
     private void chbxShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbxShowPasswordActionPerformed
-        String check_pass = new String(txtboxPassword.getPassword());
+        String check_pass = new String(txtPassword.getPassword());
         if (chbxShowPassword.isSelected() ) {
-            txtboxPassword.setEchoChar((char)0);
+            txtPassword.setEchoChar((char)0);
         }
         else if (!(chbxShowPassword.isSelected()) & (check_pass.equals("") | check_pass.equals("Enter the password...") ) ) {
-            txtboxPassword.setEchoChar((char)0);
+            txtPassword.setEchoChar((char)0);
         }
         else {
-            txtboxPassword.setEchoChar('\u25cf');
+            txtPassword.setEchoChar('\u25cf');
         }
     }//GEN-LAST:event_chbxShowPasswordActionPerformed
 
     private void btnFgtPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFgtPasswordMouseClicked
-        //new ForgotpasswordFrame().setVisible(true);
-        
-        new ForgotpasswordDialog(this, true).setVisible(true);
+        new ForgotpasswordFrame().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnFgtPasswordMouseClicked
+
+    private void jPanelTopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTopMouseClicked
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_jPanelTopMouseClicked
+
+    private void jPanelTopMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTopMouseDragged
+        int cur_x = evt.getXOnScreen();
+        int cur_y = evt.getYOnScreen();
+        
+        this.setLocation(cur_x - mouseX, cur_y - mouseY);
+    }//GEN-LAST:event_jPanelTopMouseDragged
 
     /**
      * @param args the command line arguments
@@ -327,7 +426,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lblCompanyName;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblLogo;
-    private javax.swing.JPasswordField txtboxPassword;
-    private javax.swing.JTextField txtboxUsername;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

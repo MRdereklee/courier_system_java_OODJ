@@ -1,5 +1,8 @@
 package javaassignment;
 
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.prefs.Preferences;
+
 /**
  *
  * @author sengk
@@ -7,9 +10,12 @@ package javaassignment;
 public class Staff extends User {
     private double salary;
     final private String ROLE = "Staff";
+    
+    private Preferences prefs;
+    private static AtomicInteger staff_id_incremental ;
 
-    public Staff(double salary, String fName, String lName, int age, String email, String pNumber) {
-        super(fName, lName, age, email, pNumber);
+    public Staff( String fName, String lName, int age, int gender, String email, String pNumber, double salary) {
+        super(fName, lName, age, gender, email, pNumber);
         this.salary = salary;
     }
 
@@ -30,5 +36,14 @@ public class Staff extends User {
         return super.toString() + salary + ";" + ROLE;
     }
     
-    
+    @Override
+    public String id_incremental() {
+        prefs = Preferences.userRoot().node(this.getClass().getName());
+        staff_id_incremental = new AtomicInteger(prefs.getInt("autoincremental", 0));
+        int id = staff_id_incremental.incrementAndGet();
+        prefs.putInt("autoincremental", staff_id_incremental.get());
+        
+        String ID = Integer.toString(id);
+        return "S" + ID;
+    }
 }

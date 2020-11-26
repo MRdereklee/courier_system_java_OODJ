@@ -6,13 +6,29 @@
 
 package javaassignment;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Formatter;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Khloe Lai
  */
 public class Feedbackdetails extends javax.swing.JFrame {
+     Scanner sc;
 
-    /** Creates new form Feedbackdetails */
+        String OrderID="";
+        String Comment="";
+        String Rating="";
+    
     public Feedbackdetails() {
         initComponents();
     }
@@ -28,66 +44,67 @@ public class Feedbackdetails extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btndeletefeedback = new javax.swing.JButton();
+        btnupdatefeedback = new javax.swing.JButton();
+        btnaddfeedback = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtOrderID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtFeedCom = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        cboRate = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 102));
 
-        jButton4.setBackground(new java.awt.Color(0, 0, 0));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton4.setForeground(java.awt.Color.white);
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconbtn/trash.png"))); // NOI18N
-        jButton4.setText("DELETE");
-        jButton4.setToolTipText("Delete");
-        jButton4.setBorderPainted(false);
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton4.setFocusCycleRoot(true);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btndeletefeedback.setBackground(new java.awt.Color(0, 0, 0));
+        btndeletefeedback.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btndeletefeedback.setForeground(java.awt.Color.white);
+        btndeletefeedback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconbtn/trash.png"))); // NOI18N
+        btndeletefeedback.setText("DELETE");
+        btndeletefeedback.setToolTipText("Delete");
+        btndeletefeedback.setBorderPainted(false);
+        btndeletefeedback.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btndeletefeedback.setFocusCycleRoot(true);
+        btndeletefeedback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btndeletefeedbackActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton2.setForeground(java.awt.Color.white);
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-update-24.png"))); // NOI18N
-        jButton2.setText("UPDATE");
-        jButton2.setToolTipText("Update");
-        jButton2.setBorderPainted(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton2.setFocusCycleRoot(true);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnupdatefeedback.setBackground(new java.awt.Color(0, 0, 0));
+        btnupdatefeedback.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnupdatefeedback.setForeground(java.awt.Color.white);
+        btnupdatefeedback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-update-24.png"))); // NOI18N
+        btnupdatefeedback.setText("UPDATE");
+        btnupdatefeedback.setToolTipText("Update");
+        btnupdatefeedback.setBorderPainted(false);
+        btnupdatefeedback.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnupdatefeedback.setFocusCycleRoot(true);
+        btnupdatefeedback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnupdatefeedbackActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setForeground(java.awt.Color.white);
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconbtn/add.png"))); // NOI18N
-        jButton1.setText("ADD");
-        jButton1.setToolTipText("Add");
-        jButton1.setBorderPainted(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.setFocusCycleRoot(true);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnaddfeedback.setBackground(new java.awt.Color(0, 0, 0));
+        btnaddfeedback.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnaddfeedback.setForeground(java.awt.Color.white);
+        btnaddfeedback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconbtn/add.png"))); // NOI18N
+        btnaddfeedback.setText("ADD");
+        btnaddfeedback.setToolTipText("Add");
+        btnaddfeedback.setBorderPainted(false);
+        btnaddfeedback.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnaddfeedback.setFocusCycleRoot(true);
+        btnaddfeedback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnaddfeedbackActionPerformed(evt);
             }
         });
 
@@ -108,9 +125,9 @@ public class Feedbackdetails extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btndeletefeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnupdatefeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnaddfeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(24, 24, 24))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -122,11 +139,11 @@ public class Feedbackdetails extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnaddfeedback)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnupdatefeedback)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(btndeletefeedback)
                 .addGap(47, 47, 47))
         );
 
@@ -138,6 +155,8 @@ public class Feedbackdetails extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setText("Feedback Details");
+
+        cboRate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,9 +176,9 @@ public class Feedbackdetails extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtFeedCom, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtOrderID, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cboRate, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 42, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -171,17 +190,17 @@ public class Feedbackdetails extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtOrderID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFeedCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(48, 65, Short.MAX_VALUE))
+                    .addComponent(jLabel4)
+                    .addComponent(cboRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,24 +215,204 @@ public class Feedbackdetails extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btndeletefeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeletefeedbackActionPerformed
+         int YesNo = JOptionPane.YES_OPTION;
+       if(JOptionPane.showConfirmDialog(rootPane,"Are you sure you want to delete?","Delete",YesNo)==JOptionPane.YES_OPTION)
+       {
+          ArrayList <String[]> Feedback = new ArrayList<> ();
+       
+        
+        try{
+            sc = new Scanner (new File ("Feedback.txt"));
+            
+        }
+            catch (FileNotFoundException ex){
+                Logger.getLogger(Feedback.class.getName()).log(Level.SEVERE,null,ex);
+                return;
+                               
+            }
+        boolean found = false;
+        while (sc.hasNext()){
+            String [] data = sc.nextLine().split(",");
+            if (data[0].equals(txtOrderID.getText())){
+                found = true;
+                continue;
+       }
+            else{
+                Feedback.add(data);
+            }
+            }
+       
+       sc.close();
+       
+     if (found==false){
+         JOptionPane.showMessageDialog(rootPane,"Order ID not found. Please ensure Order ID is correct.");
+         return;
+     }
+     
+     Formatter fmt =null;
+        try{
+            fmt = new Formatter(new File("Feedback.txt")) ;
+            for (int i = 0; i < Feedback.size(); i++) {
+                String [] data =Feedback.get(i);
+                StringBuilder build = new StringBuilder();
+                build.append(data[0]);
+                build.append(",");
+                build.append(data[1]);
+                build.append(",");
+                build.append(data[2]);
+            
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+                
+                if ( i != Feedback.size() -1){
+                    fmt.format("%s\n",build.toString());
+                }
+                else {
+                    fmt.format("%s",build.toString()); 
+                }
+            }
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+            return;
+        }
+        fmt.close();
+        JOptionPane.showMessageDialog(rootPane,"Delete Successful!","Success",JOptionPane.INFORMATION_MESSAGE);
+        
+       }
+    }//GEN-LAST:event_btndeletefeedbackActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnupdatefeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdatefeedbackActionPerformed
+        checkEmpty();
+
+        ArrayList <String[]> Feedback = new ArrayList<> ();
+       
+        
+        try{
+            sc = new Scanner (new File ("Feedback.txt"));
+            
+        }
+            catch (FileNotFoundException ex){
+                Logger.getLogger(Feedbackdetails.class.getName()).log(Level.SEVERE,null,ex);
+                return;
+                               
+            }
+        boolean found = false;
+        while (sc.hasNext()){
+             String rating =String.valueOf(cboRate.getSelectedItem());
+            String [] data = sc.nextLine().split(",");
+            if (data[0].equals(txtOrderID.getText())){
+                found = true;
+                
+                data[1]=txtFeedCom.getText();
+                data[2]=rating;
+            }
+            Feedback.add(data);
+            
+        }
+        sc.close();
+        
+        if(found == false)
+        {
+             JOptionPane.showMessageDialog(rootPane, "Order ID not found in database.Please ensure Order ID is correct.");
+                    return; 
+        }
+        
+        Formatter fmt =null;
+        try{
+            fmt = new Formatter(new File("Feedback.txt")) ;
+            for (int i = 0; i < Feedback.size(); i++) {
+                String [] data =Feedback.get(i);
+                StringBuilder build = new StringBuilder();
+                build.append(data[0]);
+                build.append(",");
+                build.append(data[1]);
+                build.append(",");
+                build.append(data[2]);
+
+                
+                if ( i != Feedback.size() -1){
+                    fmt.format("%s\n",build.toString());
+                }
+                else {
+                    fmt.format("%s",build.toString()); 
+                }
+            }
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+            return;
+        }
+        fmt.close();
+        JOptionPane.showMessageDialog(rootPane,"Update Successful!","Success",JOptionPane.INFORMATION_MESSAGE);
+    
+    }//GEN-LAST:event_btnupdatefeedbackActionPerformed
+
+    private void btnaddfeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddfeedbackActionPerformed
+     checkEmpty();
+  if (txtOrderID.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Please enter the Order ID", "Incomplete Order ID", JOptionPane.ERROR_MESSAGE);
+            //set cursor to the textbox
+            txtOrderID.requestFocus();           
+        }
+        else if (txtFeedCom.getText().equals("")){
+             JOptionPane.showMessageDialog(rootPane, "Please fill in the Comment", "Incomplete Comment", JOptionPane.ERROR_MESSAGE);
+             txtFeedCom.requestFocus();
+        }
+         else if(cboRate.getSelectedItem().equals("")){
+             JOptionPane.showMessageDialog(rootPane, "Please enter the Student Password", "Incomplete Student Password", JOptionPane.ERROR_MESSAGE);
+             cboRate.requestFocus();
+             
+        }
+        else{
+            try{
+            String rating =String.valueOf(cboRate.getSelectedItem());
+            Feedback fb = new Feedback(txtOrderID.getText(),txtFeedCom.getText(),rating);
+            FileWriter myFile = new FileWriter("Feedback.txt",true);
+            PrintWriter pw = new PrintWriter(myFile);
+            pw.println(fb.getOrderID()+ "," + fb.getComment() + "," + fb.getRating());
+            
+            pw.close();
+             JOptionPane.showMessageDialog(rootPane, "Feedback added", "Add Successful", JOptionPane.INFORMATION_MESSAGE);
+     // After closing the previous message dialog, ask user whether
+     // to continue adding
+            int YesNo = JOptionPane.YES_OPTION;
+         if (JOptionPane.showConfirmDialog (null, "Do you want to add another record?","Add New", YesNo) == JOptionPane.YES_OPTION){
+             clearFields();            
+         }
+         else{
+             clearFields();
+             
+         }
+      }
+            catch (IOException ex){
+                JOptionPane.showMessageDialog(rootPane, ex.toString());
+            }
+          
+        }
+
+  
+    }//GEN-LAST:event_btnaddfeedbackActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         dispose (); 
     }//GEN-LAST:event_jLabel1MouseClicked
+private void clearFields(){ 
+    //clears the textfields
+    txtOrderID.setText("");
+    txtFeedCom.setText("");
+    
+    //set the cursor back to the ID textfield
+    txtOrderID.requestFocus();
+}
 
+    private boolean checkEmpty(){
+    if(txtOrderID.getText().equals("")||txtFeedCom.getText().equals("")){
+        return true;       
+    }
+    else{ return false;}
+}
     /**
      * @param args the command line arguments
      */
@@ -265,9 +464,10 @@ public class Feedbackdetails extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnaddfeedback;
+    private javax.swing.JButton btndeletefeedback;
+    private javax.swing.JButton btnupdatefeedback;
+    private javax.swing.JComboBox<String> cboRate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -275,9 +475,8 @@ public class Feedbackdetails extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    public javax.swing.JTextField txtFeedCom;
+    public javax.swing.JTextField txtOrderID;
     // End of variables declaration//GEN-END:variables
 
 }

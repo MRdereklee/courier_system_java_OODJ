@@ -11,9 +11,6 @@ package javaassignment;
  */
 public class Deliverystaffdetails extends javax.swing.JFrame {
 
-    /**
-     * Creates new form deliverystaffdetails
-     */
     public Deliverystaffdetails() {
         initComponents();
     }

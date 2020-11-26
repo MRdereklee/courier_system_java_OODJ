@@ -11,13 +11,14 @@ import javax.swing.JFrame;
  *
  * @author Khloe Lai
  */
-public class Main extends javax.swing.JFrame {
+public class MainStaff extends javax.swing.JFrame {
 
     /**
      * Creates new form Main
      */
-    public Main() {
+    public MainStaff() {
         initComponents();
+        btnProfile.setText("Hi, ");
     }
 
     /**
@@ -31,12 +32,6 @@ public class Main extends javax.swing.JFrame {
 
         jPanelBottom = new javax.swing.JPanel();
         jPanelMain = new javax.swing.JPanel();
-        jPanelReport = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        lblReport = new javax.swing.JLabel();
-        jPanelEmployee = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        lblEmployee = new javax.swing.JLabel();
         jPanelFeedback = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         lblFeedback = new javax.swing.JLabel();
@@ -64,76 +59,14 @@ public class Main extends javax.swing.JFrame {
 
         jPanelMain.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanelReport.setBackground(new java.awt.Color(248, 248, 248));
-        jPanelReport.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanelReport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/bar.png"))); // NOI18N
-
-        lblReport.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblReport.setText("Report");
-
-        javax.swing.GroupLayout jPanelReportLayout = new javax.swing.GroupLayout(jPanelReport);
-        jPanelReport.setLayout(jPanelReportLayout);
-        jPanelReportLayout.setHorizontalGroup(
-            jPanelReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelReportLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(lblReport)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addContainerGap())
-        );
-        jPanelReportLayout.setVerticalGroup(
-            jPanelReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelReportLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel4))
-            .addGroup(jPanelReportLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblReport)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanelEmployee.setBackground(new java.awt.Color(248, 248, 248));
-        jPanelEmployee.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanelEmployee.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanelEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanelEmployeeMouseClicked(evt);
-            }
-        });
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-crowd-64.png"))); // NOI18N
-
-        lblEmployee.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblEmployee.setText("Employee");
-
-        javax.swing.GroupLayout jPanelEmployeeLayout = new javax.swing.GroupLayout(jPanelEmployee);
-        jPanelEmployee.setLayout(jPanelEmployeeLayout);
-        jPanelEmployeeLayout.setHorizontalGroup(
-            jPanelEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelEmployeeLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(lblEmployee)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addContainerGap())
-        );
-        jPanelEmployeeLayout.setVerticalGroup(
-            jPanelEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelEmployeeLayout.createSequentialGroup()
-                .addComponent(jLabel9)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanelEmployeeLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(lblEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
-        );
-
         jPanelFeedback.setBackground(new java.awt.Color(248, 248, 248));
         jPanelFeedback.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelFeedback.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanelFeedback.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelFeedbackMouseClicked(evt);
+            }
+        });
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-trust-64.png"))); // NOI18N
 
@@ -214,7 +147,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOrderLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(lblOrder)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -278,14 +211,12 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanelMainLayout.createSequentialGroup()
                 .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelMainLayout.createSequentialGroup()
-                        .addGap(108, 108, 108)
+                        .addGap(125, 125, 125)
+                        .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanelOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanelFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(84, 84, 84)
                         .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanelEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanelOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanelFeedback, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(101, 101, 101)
-                        .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanelReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanelVehicle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanelMainLayout.createSequentialGroup()
@@ -296,24 +227,15 @@ public class Main extends javax.swing.JFrame {
         jPanelMainLayout.setVerticalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMainLayout.createSequentialGroup()
-                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelMainLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jPanelEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanelVehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                .addGap(53, 53, 53)
                 .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanelMainLayout.createSequentialGroup()
-                        .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanelOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanelFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanelReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jPanelVehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanelFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
@@ -406,14 +328,14 @@ public class Main extends javax.swing.JFrame {
         new Login().setVisible(true);
     }//GEN-LAST:event_btnLogoutMouseClicked
 
-    private void jPanelEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelEmployeeMouseClicked
-        dispose();
-        new Staffpage().setVisible(true); 
-    }//GEN-LAST:event_jPanelEmployeeMouseClicked
-
     private void jPanelOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelOrderMouseClicked
         new Finance().setVisible(true);
     }//GEN-LAST:event_jPanelOrderMouseClicked
+
+    private void jPanelFeedbackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelFeedbackMouseClicked
+        dispose();
+        new Feedbackpage().setVisible(true);
+    }//GEN-LAST:event_jPanelFeedbackMouseClicked
 
     /**
      * @param args the command line arguments
@@ -432,20 +354,23 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new MainStaff().setVisible(true);
             }
         });
     }
@@ -457,24 +382,18 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanelBottom;
-    private javax.swing.JPanel jPanelEmployee;
     private javax.swing.JPanel jPanelFeedback;
     private javax.swing.JPanel jPanelMain;
     private javax.swing.JPanel jPanelOrder;
-    private javax.swing.JPanel jPanelReport;
     private javax.swing.JPanel jPanelVehicle;
-    private javax.swing.JLabel lblEmployee;
     private javax.swing.JLabel lblFeedback;
     private javax.swing.JLabel lblOrder;
-    private javax.swing.JLabel lblReport;
     private javax.swing.JLabel lblVehicle;
     // End of variables declaration//GEN-END:variables
 }
