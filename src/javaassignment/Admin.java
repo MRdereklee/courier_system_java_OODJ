@@ -6,6 +6,7 @@
 package javaassignment;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.prefs.Preferences;
 
 /**
  *
@@ -14,7 +15,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Admin extends User{
     private double salary;
     final private String ROLE = "Admin";
-    private static AtomicInteger admin_id_incremental = new AtomicInteger(0);
+    
+    private Preferences prefs;
+    private static AtomicInteger admin_id_incremental;
 
     public Admin(String fName, String lName, int age, int gender, String email, String pNumber, double salary ) {
         super(fName, lName, age, gender, email, pNumber);
@@ -40,7 +43,12 @@ public class Admin extends User{
     
     @Override
     public String id_incremental() {
-       String ID = Integer.toString(admin_id_incremental.incrementAndGet());
-       return "A" + ID;
+        prefs = Preferences.userRoot().node(this.getClass().getName());
+        admin_id_incremental = new AtomicInteger(prefs.getInt("autoincremental_admin",1));
+        int id = admin_id_incremental.incrementAndGet();
+        prefs.putInt("autoincremental_admin", admin_id_incremental.get());
+        
+        String ID = Integer.toString(id);
+        return "A" + ID;
     }
 }

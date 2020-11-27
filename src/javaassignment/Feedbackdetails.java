@@ -32,7 +32,9 @@ public class Feedbackdetails extends javax.swing.JFrame {
     public Feedbackdetails() {
         initComponents();
     }
-
+    int mouseX;
+    int mouseY;
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -42,12 +44,12 @@ public class Feedbackdetails extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        MainWhitePanel = new javax.swing.JPanel();
+        YellowSidePanel = new javax.swing.JPanel();
         btndeletefeedback = new javax.swing.JButton();
         btnupdatefeedback = new javax.swing.JButton();
         btnaddfeedback = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        btnExit = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtOrderID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -55,13 +57,25 @@ public class Feedbackdetails extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         cboRate = new javax.swing.JComboBox<>();
+        txtFeedID = new javax.swing.JTextField();
+        lblFeedID = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        MainWhitePanel.setBackground(new java.awt.Color(255, 255, 255));
+        MainWhitePanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                MainWhitePanelMouseDragged(evt);
+            }
+        });
+        MainWhitePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MainWhitePanelMouseClicked(evt);
+            }
+        });
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 102));
+        YellowSidePanel.setBackground(new java.awt.Color(255, 204, 102));
 
         btndeletefeedback.setBackground(new java.awt.Color(0, 0, 0));
         btndeletefeedback.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -108,43 +122,44 @@ public class Feedbackdetails extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-multiply-24.png"))); // NOI18N
-        jLabel1.setToolTipText("Close");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-multiply-24.png"))); // NOI18N
+        btnExit.setToolTipText("Close");
+        btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                btnExitMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout YellowSidePanelLayout = new javax.swing.GroupLayout(YellowSidePanel);
+        YellowSidePanel.setLayout(YellowSidePanelLayout);
+        YellowSidePanelLayout.setHorizontalGroup(
+            YellowSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(YellowSidePanelLayout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addGroup(YellowSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, YellowSidePanelLayout.createSequentialGroup()
+                        .addComponent(btnExit)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, YellowSidePanelLayout.createSequentialGroup()
+                        .addGroup(YellowSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btndeletefeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnupdatefeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnaddfeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap())))
+                        .addGap(23, 23, 23))))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        YellowSidePanelLayout.setVerticalGroup(
+            YellowSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, YellowSidePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(btnExit)
+                .addGap(37, 37, 37)
                 .addComponent(btnaddfeedback)
                 .addGap(18, 18, 18)
                 .addComponent(btnupdatefeedback)
                 .addGap(18, 18, 18)
                 .addComponent(btndeletefeedback)
-                .addGap(47, 47, 47))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel2.setText("Order ID:");
@@ -158,60 +173,68 @@ public class Feedbackdetails extends javax.swing.JFrame {
 
         cboRate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        lblFeedID.setText("Feedback ID:");
+
+        javax.swing.GroupLayout MainWhitePanelLayout = new javax.swing.GroupLayout(MainWhitePanel);
+        MainWhitePanel.setLayout(MainWhitePanelLayout);
+        MainWhitePanelLayout.setHorizontalGroup(
+            MainWhitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainWhitePanelLayout.createSequentialGroup()
+                .addGroup(MainWhitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MainWhitePanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel5))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainWhitePanelLayout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(MainWhitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(lblFeedID))
                         .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(MainWhitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(MainWhitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(txtFeedCom, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtOrderID, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtOrderID, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtFeedID, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(cboRate, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 42, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 30, Short.MAX_VALUE)
+                .addComponent(YellowSidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+        MainWhitePanelLayout.setVerticalGroup(
+            MainWhitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(YellowSidePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainWhitePanelLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addComponent(jLabel5)
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(MainWhitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFeedID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFeedID))
+                .addGap(18, 18, 18)
+                .addGroup(MainWhitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtOrderID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(MainWhitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtFeedCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(MainWhitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(cboRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainWhitePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainWhitePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -219,7 +242,8 @@ public class Feedbackdetails extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btndeletefeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeletefeedbackActionPerformed
-         int YesNo = JOptionPane.YES_OPTION;
+        Feedbackpage fbpage = new Feedbackpage();
+        int YesNo = JOptionPane.YES_OPTION;
        if(JOptionPane.showConfirmDialog(rootPane,"Are you sure you want to delete?","Delete",YesNo)==JOptionPane.YES_OPTION)
        {
           ArrayList <String[]> Feedback = new ArrayList<> ();
@@ -236,8 +260,8 @@ public class Feedbackdetails extends javax.swing.JFrame {
             }
         boolean found = false;
         while (sc.hasNext()){
-            String [] data = sc.nextLine().split(",");
-            if (data[0].equals(txtOrderID.getText())){
+            String [] data = sc.nextLine().split(";");
+            if (data[0].equals(txtFeedID.getText())){
                 found = true;
                 continue;
        }
@@ -260,9 +284,9 @@ public class Feedbackdetails extends javax.swing.JFrame {
                 String [] data =Feedback.get(i);
                 StringBuilder build = new StringBuilder();
                 build.append(data[0]);
-                build.append(",");
+                build.append(";");
                 build.append(data[1]);
-                build.append(",");
+                build.append(";");
                 build.append(data[2]);
             
 
@@ -282,11 +306,15 @@ public class Feedbackdetails extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane,"Delete Successful!","Success",JOptionPane.INFORMATION_MESSAGE);
         
        }
+        fbpage.setVisible(true);
+        fbpage.feedbacktable();
+        dispose();
     }//GEN-LAST:event_btndeletefeedbackActionPerformed
 
     private void btnupdatefeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdatefeedbackActionPerformed
-        checkEmpty();
-
+         checkEmpty();
+         Feedbackpage fbpage = new Feedbackpage();
+         
         ArrayList <String[]> Feedback = new ArrayList<> ();
        
         
@@ -302,12 +330,13 @@ public class Feedbackdetails extends javax.swing.JFrame {
         boolean found = false;
         while (sc.hasNext()){
              String rating =String.valueOf(cboRate.getSelectedItem());
-            String [] data = sc.nextLine().split(",");
-            if (data[0].equals(txtOrderID.getText())){
+            String [] data = sc.nextLine().split(";");
+            if (data[0].equals(txtFeedID.getText())){
                 found = true;
                 
-                data[1]=txtFeedCom.getText();
-                data[2]=rating;
+                data[1]=txtOrderID.getText();
+                data[2]=txtFeedCom.getText();
+                data[3]=rating;
             }
             Feedback.add(data);
             
@@ -327,10 +356,14 @@ public class Feedbackdetails extends javax.swing.JFrame {
                 String [] data =Feedback.get(i);
                 StringBuilder build = new StringBuilder();
                 build.append(data[0]);
-                build.append(",");
+                build.append(";");
                 build.append(data[1]);
-                build.append(",");
+                build.append(";");
                 build.append(data[2]);
+                build.append(";");
+                build.append(data[3]);
+
+                
 
                 
                 if ( i != Feedback.size() -1){
@@ -346,15 +379,24 @@ public class Feedbackdetails extends javax.swing.JFrame {
         }
         fmt.close();
         JOptionPane.showMessageDialog(rootPane,"Update Successful!","Success",JOptionPane.INFORMATION_MESSAGE);
-    
+     
+        fbpage.setVisible(true);
+        fbpage.feedbacktable();
+        dispose();
     }//GEN-LAST:event_btnupdatefeedbackActionPerformed
 
     private void btnaddfeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddfeedbackActionPerformed
      checkEmpty();
-  if (txtOrderID.getText().equals("")){
-            JOptionPane.showMessageDialog(rootPane, "Please enter the Order ID", "Incomplete Order ID", JOptionPane.ERROR_MESSAGE);
+     Feedbackpage fbpage = new Feedbackpage();
+
+  if (txtFeedID.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Please enter the Feedback ID", "Incomplete Feedback ID", JOptionPane.ERROR_MESSAGE);
             //set cursor to the textbox
-            txtOrderID.requestFocus();           
+            txtFeedID.requestFocus();           
+        }
+         else if (txtOrderID.getText().equals("")){
+             JOptionPane.showMessageDialog(rootPane, "Please fill in the Order ID", "Incomplete Order ID", JOptionPane.ERROR_MESSAGE);
+             txtOrderID.requestFocus();
         }
         else if (txtFeedCom.getText().equals("")){
              JOptionPane.showMessageDialog(rootPane, "Please fill in the Comment", "Incomplete Comment", JOptionPane.ERROR_MESSAGE);
@@ -368,10 +410,10 @@ public class Feedbackdetails extends javax.swing.JFrame {
         else{
             try{
             String rating =String.valueOf(cboRate.getSelectedItem());
-            Feedback fb = new Feedback(txtOrderID.getText(),txtFeedCom.getText(),rating);
+            Feedback fb = new Feedback(txtFeedID.getText(),txtOrderID.getText(),txtFeedCom.getText(),rating);
             FileWriter myFile = new FileWriter("Feedback.txt",true);
             PrintWriter pw = new PrintWriter(myFile);
-            pw.println(fb.getOrderID()+ "," + fb.getComment() + "," + fb.getRating());
+            pw.println(fb.getFeedbackID()+";"+fb.getOrderID()+ ";" + fb.getComment() + ";" + fb.getRating());
             
             pw.close();
              JOptionPane.showMessageDialog(rootPane, "Feedback added", "Add Successful", JOptionPane.INFORMATION_MESSAGE);
@@ -389,26 +431,42 @@ public class Feedbackdetails extends javax.swing.JFrame {
             catch (IOException ex){
                 JOptionPane.showMessageDialog(rootPane, ex.toString());
             }
-          
+    
         }
-
+        fbpage.setVisible(true);
+        fbpage.feedbacktable();
+        dispose();
   
     }//GEN-LAST:event_btnaddfeedbackActionPerformed
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
         dispose (); 
-    }//GEN-LAST:event_jLabel1MouseClicked
+        new Feedbackpage().setVisible(true);
+    }//GEN-LAST:event_btnExitMouseClicked
+
+    private void MainWhitePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainWhitePanelMouseClicked
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_MainWhitePanelMouseClicked
+
+    private void MainWhitePanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainWhitePanelMouseDragged
+        int cur_x = evt.getXOnScreen();
+        int cur_y = evt.getYOnScreen();
+        
+        this.setLocation(cur_x - mouseX, cur_y - mouseY);
+    }//GEN-LAST:event_MainWhitePanelMouseDragged
 private void clearFields(){ 
     //clears the textfields
+    txtFeedID.setText("");
     txtOrderID.setText("");
     txtFeedCom.setText("");
     
     //set the cursor back to the ID textfield
-    txtOrderID.requestFocus();
+    txtFeedID.requestFocus();
 }
 
     private boolean checkEmpty(){
-    if(txtOrderID.getText().equals("")||txtFeedCom.getText().equals("")){
+    if(txtFeedID.getText().equals("")||txtOrderID.getText().equals("")||txtFeedCom.getText().equals("")){
         return true;       
     }
     else{ return false;}
@@ -464,18 +522,20 @@ private void clearFields(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel MainWhitePanel;
+    private javax.swing.JPanel YellowSidePanel;
+    private javax.swing.JLabel btnExit;
     private javax.swing.JButton btnaddfeedback;
     private javax.swing.JButton btndeletefeedback;
     private javax.swing.JButton btnupdatefeedback;
-    private javax.swing.JComboBox<String> cboRate;
-    private javax.swing.JLabel jLabel1;
+    public javax.swing.JComboBox<String> cboRate;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblFeedID;
     public javax.swing.JTextField txtFeedCom;
+    public javax.swing.JTextField txtFeedID;
     public javax.swing.JTextField txtOrderID;
     // End of variables declaration//GEN-END:variables
 

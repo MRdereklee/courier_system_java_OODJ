@@ -1,6 +1,1 @@
-S1;WongWei Lok;20weilok@home.com;Wong;Wei Lok;2000;0;weilok@home.com;012312144;1000.0;Staff
-S1;Derekhahaha;20qfef;Derek;hahaha;20;0;qfef;132134124;12323.0;Staff
-S2;qeffqfef;123123;qeff;qfef;123;0;123;123;123.0;Staff
-S3;qffeqfq;123211;qff;eqfq;123;0;211;312414;1413431.0;Staff
-S4;123123;123123;123;123;123;0;123;123;123.0;Staff
-S5;34134314133414;123444434143;34134314;133414;123444;2;434143;123445;3.414311414E9;Staff
+S1;GeneNg;20geneng@hotmail.com;Gene;Ng;20;0;geneng@hotmail.com;012344567;300.0;Staff

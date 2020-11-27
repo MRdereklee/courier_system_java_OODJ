@@ -43,8 +43,8 @@ public class Changeusername extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btnClose = new javax.swing.JLabel();
-        txtNewPassword = new javax.swing.JPasswordField();
-        txtConfirmPassword = new javax.swing.JPasswordField();
+        txtCurrentUsername = new javax.swing.JTextField();
+        txtNewUsername = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 102));
@@ -98,19 +98,26 @@ public class Changeusername extends javax.swing.JFrame {
         );
 
         lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblUsername.setText("New Password :");
+        lblUsername.setText("Current Username :");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setText("Change Username");
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel6.setText("Confirmation Password :");
+        jLabel6.setText("New Username :");
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-multiply-24.png"))); // NOI18N
         btnClose.setToolTipText("Close");
+        btnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCloseMouseClicked(evt);
+            }
+        });
+
+        txtCurrentUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCurrentUsernameActionPerformed(evt);
             }
         });
 
@@ -131,10 +138,10 @@ public class Changeusername extends javax.swing.JFrame {
                                 .addGroup(jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblUsername, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(47, 47, 47)
+                                .addGap(55, 55, 55)
                                 .addGroup(jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                                    .addComponent(txtNewPassword)))
+                                    .addComponent(txtCurrentUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                                    .addComponent(txtNewUsername)))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -152,12 +159,12 @@ public class Changeusername extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsername)
-                    .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCurrentUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addGroup(jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                    .addComponent(txtNewUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -183,14 +190,15 @@ public class Changeusername extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseMouseClicked
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        Login logged_user = new Login();
+        Loginpage logged_user = new Loginpage();
         String role = logged_user.role;
         String username = logged_user.user_name;
-        String new_password = new String(txtNewPassword.getPassword());
-        String confirm_password = new String (txtConfirmPassword.getPassword());
+        String id = logged_user.id;
+        String current_username = txtCurrentUsername.getText();
+        String  new_username = txtNewUsername.getText();
         
         ArrayList<String> tempArray = new ArrayList<>();
-        if (new_password.equals(confirm_password)) {
+        if (current_username.equals(username)) {
             try {
                 Boolean found = false;
                 File file = new File(role + ".txt");
@@ -199,11 +207,11 @@ public class Changeusername extends javax.swing.JFrame {
                 while (sc.hasNext()) {
                   String temp = sc.nextLine();
                   String[] tempArr = temp.split(";");
-                  if (username.equals(tempArr[1])) {
+                  if (id.equals(tempArr[0])) {
                       tempArray.add (
                               tempArr[0] + ";" +
-                              tempArr[1] + ";" +
-                              new_password + ";" +
+                              new_username + ";" +
+                              tempArr[2] + ";" +
                               tempArr[3] + ";" +
                               tempArr[4] + ";" +
                               tempArr[5] + ";" +
@@ -214,7 +222,10 @@ public class Changeusername extends javax.swing.JFrame {
                               tempArr[10]
                       );
                     }
+                  else {
                     tempArray.add(temp);
+                  }
+
                 }
                 
                 PrintWriter pr = new PrintWriter(role + ".txt");
@@ -223,13 +234,17 @@ public class Changeusername extends javax.swing.JFrame {
                 }
                 
                 pr.close();
-                JOptionPane.showMessageDialog(rootPane, "Password has been changed", "Change Password Successfully", JOptionPane.INFORMATION_MESSAGE);   
+                JOptionPane.showMessageDialog(rootPane, "Username has been changed", "Change Username Successfully", JOptionPane.INFORMATION_MESSAGE);   
 
                 this.dispose();
+                new Profilepage().setVisible(true);
             }
             catch (IOException ex) {
                 
             }
+        }
+        else {
+            JOptionPane.showMessageDialog(rootPane, "Current username is incorrect", "Change Username Failure", JOptionPane.WARNING_MESSAGE);   
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -245,6 +260,10 @@ public class Changeusername extends javax.swing.JFrame {
         
         this.setLocation(cur_x - mouseX, cur_y - mouseY);
     }//GEN-LAST:event_jPanelTopMouseDragged
+
+    private void txtCurrentUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCurrentUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCurrentUsernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,7 +324,7 @@ public class Changeusername extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelTop;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblUsername;
-    private javax.swing.JPasswordField txtConfirmPassword;
-    private javax.swing.JPasswordField txtNewPassword;
+    private javax.swing.JTextField txtCurrentUsername;
+    private javax.swing.JTextField txtNewUsername;
     // End of variables declaration//GEN-END:variables
 }

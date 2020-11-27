@@ -39,7 +39,7 @@ public class Staff extends User {
     @Override
     public String id_incremental() {
         prefs = Preferences.userRoot().node(this.getClass().getName());
-        staff_id_incremental = new AtomicInteger(prefs.getInt("autoincremental", 0));
+        staff_id_incremental = new AtomicInteger(prefs.getInt("autoincremental_stafft", 1));
         int id = staff_id_incremental.incrementAndGet();
         prefs.putInt("autoincremental", staff_id_incremental.get());
         

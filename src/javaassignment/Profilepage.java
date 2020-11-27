@@ -14,12 +14,12 @@ import javax.swing.JOptionPane;
  *
  * @author Khloe Lai
  */
-public class Profile extends javax.swing.JFrame {
+public class Profilepage extends javax.swing.JFrame {
 
     /**
      * Creates new form profile
      */
-    public Profile() {
+    public Profilepage() {
         initComponents();
         load_profile();
     }
@@ -28,8 +28,8 @@ public class Profile extends javax.swing.JFrame {
     
     
     public void load_profile() {
-        Login logged_user = new Login();
-        String username = logged_user.user_name;
+        Loginpage logged_user = new Loginpage();
+        String id = logged_user.id;
         String role = logged_user.role;
         try {
             File adminFile = new File(role + ".txt");
@@ -37,7 +37,7 @@ public class Profile extends javax.swing.JFrame {
             while (sc_admin.hasNext()) {
                 String temp = sc_admin.nextLine();
                 String[] tempArr = temp.split(";");
-                if (username.equals(tempArr[1])) {
+                if (id.equals(tempArr[0])) {
                     txtID.setText(tempArr[0]);
                     txtUsername.setText(tempArr[1]);
                     txtFullName.setText(tempArr[3] + " " + tempArr[4]);
@@ -269,9 +269,9 @@ public class Profile extends javax.swing.JFrame {
         btnUsername.setBorderPainted(false);
         btnUsername.setMaximumSize(new java.awt.Dimension(59, 23));
         btnUsername.setMinimumSize(new java.awt.Dimension(59, 23));
-        btnUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUsernameActionPerformed(evt);
+        btnUsername.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUsernameMouseClicked(evt);
             }
         });
 
@@ -280,26 +280,26 @@ public class Profile extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addGap(29, 29, 29)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblFullname)
-                                .addComponent(lblAge)
-                                .addComponent(lblGender)
-                                .addComponent(lblEmail)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(48, 48, 48)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtFullName)
-                                .addComponent(txtAge)
-                                .addComponent(txtGender)
-                                .addComponent(txtEmail)
-                                .addComponent(txtPNumber)))
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addGap(86, 86, 86)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblFullname)
+                            .addComponent(lblAge)
+                            .addComponent(lblGender)
+                            .addComponent(lblEmail)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(48, 48, 48)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFullName)
+                            .addComponent(txtAge)
+                            .addComponent(txtGender)
+                            .addComponent(txtEmail)
+                            .addComponent(txtPNumber)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
@@ -331,7 +331,7 @@ public class Profile extends javax.swing.JFrame {
                         .addComponent(txtPNumber)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(btnUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addComponent(btnPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -417,9 +417,10 @@ public class Profile extends javax.swing.JFrame {
         new Changepassword().setVisible(true);
     }//GEN-LAST:event_btnPasswordActionPerformed
 
-    private void btnUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUsernameActionPerformed
+    private void btnUsernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsernameMouseClicked
+        dispose();
+        new Changeusername().setVisible(true);
+    }//GEN-LAST:event_btnUsernameMouseClicked
 
     /**
      * @param args the command line arguments
@@ -438,14 +439,22 @@ public class Profile extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Profilepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Profilepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Profilepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Profilepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -458,7 +467,7 @@ public class Profile extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Profile().setVisible(true);
+                new Profilepage().setVisible(true);
             }
         });
     }

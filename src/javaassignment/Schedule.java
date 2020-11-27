@@ -5,10 +5,19 @@
  */
 package javaassignment;
 
-/**
- *
- * @author Khloe Lai
- */
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+
 public class Schedule extends javax.swing.JFrame {
 
     /**
@@ -16,8 +25,103 @@ public class Schedule extends javax.swing.JFrame {
      */
     public Schedule() {
         initComponents();
+        btnProfileShort.setText("Hi, "+ loggedUser.user_name);
+        
+        if (loggedUser.role.equals("Driver")) {
+            Driver_schedule();
+        } 
+        else 
+        {
+            all_schedule();
+        }
     }
+    
+    Loginpage loggedUser = new Loginpage();
+    int mouseX;
+    int mouseY;
+    DefaultTableModel mymodel;
+    String order_id = "NULL";
+    
+    public void Driver_schedule() {
+         try {
+            FileReader orderlist = new FileReader("Order.txt");
+            BufferedReader br_order = new BufferedReader(orderlist);
+            
+            mymodel =(DefaultTableModel)tblSchedule.getModel();
+            mymodel.setRowCount(0);
+            
+            ArrayList<String> records = new ArrayList<String>();
+            
+            while (br_order.ready()) {
+                records.add(br_order.readLine());
+            }
+            
+            
+            for (int index = 0; index < records.size(); index++){
+               String eachline = records.get(index);
+               String [] data = eachline.split(";");
+               if (data[3].equals("Pending") & data[9].equals(loggedUser.id)) {
+                    System.out.println(data[3]);
+                    mymodel.addRow(data);
+                }
 
+           }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Orderpage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void all_schedule() {
+         try {
+            FileReader orderlist = new FileReader("Order.txt");
+            BufferedReader br_order = new BufferedReader(orderlist);
+            
+            FileReader driverlist = new FileReader("Driver.txt");
+            BufferedReader br_driver = new BufferedReader(driverlist);
+            
+            mymodel =(DefaultTableModel)tblSchedule.getModel();
+            mymodel.setRowCount(0);
+            
+            Object[] order_records = br_order.lines().toArray();
+            Object[] driver_records = br_driver.lines().toArray();
+            
+            for (int index = 0; index < order_records.length; index++){
+                String order_eachline = order_records[index].toString();
+                String[]order_row = order_eachline.split(";");
+                for (int j = 0; j < driver_records.length; j++) {
+                    String driver_eachline = driver_records[j].toString();
+                    String[] driver_row = driver_eachline.split(";");               
+                    if (!"On Hold".equals(order_row[3]) & order_row[9].equals(driver_row[0])) {
+                        String OID = order_row[0];
+                        String status = order_row[3];
+                        String Receiver = order_row[5];
+                        String Receive_date = order_row[2];
+                        String Receiver_add = order_row[6];
+                        String driver_name = driver_row[3] + driver_row[4];
+                        String driver_gender;
+                        if ("0".equals(driver_row[6]) ) {
+                            driver_gender = "Male";
+                        }
+                        else if ("1".equals(driver_row[6])){
+                            driver_gender = "Female";
+                        }
+                        else {
+                            driver_gender = "Other";
+                        }
+                        String driver_email = driver_row[7];
+                        String driver_pnumber = driver_row[8];
+
+                        String[] row = {OID, status, Receiver, Receive_date, Receiver_add, driver_name, driver_gender, driver_email, driver_pnumber};
+                        mymodel.addRow(row);
+                    }
+                }
+           }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Orderpage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,53 +131,93 @@ public class Schedule extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel4 = new javax.swing.JPanel();
+        jPanelMain = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        btnUpdateStatus = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblSchedule = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JLabel();
+        btnProfileShort = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        btnHome = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel4.setBackground(new java.awt.Color(255, 204, 102));
-        jPanel4.setForeground(new java.awt.Color(51, 51, 255));
+        jPanelMain.setBackground(new java.awt.Color(255, 204, 102));
+        jPanelMain.setForeground(new java.awt.Color(51, 51, 255));
+        jPanelMain.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanelMainMouseDragged(evt);
+            }
+        });
+        jPanelMain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelMainMouseClicked(evt);
+            }
+        });
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        btnUpdateStatus.setBackground(new java.awt.Color(0, 0, 0));
+        btnUpdateStatus.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnUpdateStatus.setForeground(java.awt.Color.white);
+        btnUpdateStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconbtn/save.png"))); // NOI18N
+        btnUpdateStatus.setText("UPDATE STATUS");
+        btnUpdateStatus.setToolTipText("");
+        btnUpdateStatus.setBorderPainted(false);
+        btnUpdateStatus.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnUpdateStatus.setFocusCycleRoot(true);
+        btnUpdateStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateStatusActionPerformed(evt);
+            }
+        });
+
+        tblSchedule.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Order Id", "Status", "Receive Date", "Receiver Name", "Receiver Address", "Driver Name", "DriverGender", "Driver Email", "Driver Phone Number"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblSchedule.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblScheduleMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblSchedule);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 748, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnUpdateStatus)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 748, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnUpdateStatus)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-in-transit-64.png"))); // NOI18N
@@ -81,75 +225,80 @@ public class Schedule extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Courier Service");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-exit-24.png"))); // NOI18N
-        jLabel10.setText("Logout");
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-user-24.png"))); // NOI18N
-        jLabel20.setText("Hi, A001.");
-        jLabel20.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnLogout.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-exit-24.png"))); // NOI18N
+        btnLogout.setText("Logout");
+        btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel20MouseClicked(evt);
+                btnLogoutMouseClicked(evt);
+            }
+        });
+
+        btnProfileShort.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnProfileShort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-user-24.png"))); // NOI18N
+        btnProfileShort.setText("Hi, A001.");
+        btnProfileShort.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnProfileShortMouseClicked(evt);
             }
         });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
-        jLabel11.setText("Schedule");
+        jLabel11.setText("Delivery Schedule");
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/main (2).png"))); // NOI18N
-        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/main (2).png"))); // NOI18N
+        btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel13MouseClicked(evt);
+                btnHomeMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanelMainLayout = new javax.swing.GroupLayout(jPanelMain);
+        jPanelMain.setLayout(jPanelMainLayout);
+        jPanelMainLayout.setHorizontalGroup(
+            jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanelMainLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelMainLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 408, Short.MAX_VALUE)
-                        .addComponent(jLabel10)
+                        .addComponent(btnLogout)
                         .addGap(27, 27, 27))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelMainLayout.createSequentialGroup()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanelMainLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel20)
+                .addComponent(btnProfileShort)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel13)
+                .addComponent(btnHome)
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+        jPanelMainLayout.setVerticalGroup(
+            jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelMainLayout.createSequentialGroup()
+                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelMainLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
+                        .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLogout)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGroup(jPanelMainLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel11)))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnProfileShort, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnHome, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
 
@@ -157,24 +306,137 @@ public class Schedule extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseClicked
-   new Profile().setVisible(true);
-    }//GEN-LAST:event_jLabel20MouseClicked
+    private void btnProfileShortMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProfileShortMouseClicked
+        JFrame profileFrame = new Profilepage();
+        profileFrame.setLocation(this.getX() + this.getWidth() + 10, this.getY());
+        profileFrame.setVisible(true);
+    }//GEN-LAST:event_btnProfileShortMouseClicked
 
-    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
-   new MainAdmin().setVisible(true);
-    }//GEN-LAST:event_jLabel13MouseClicked
+    private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
+        this.dispose();
+        if (loggedUser.role.equals("Admin")) {
+            new MainAdmin().setVisible(true);
+        }
+        else if (loggedUser.role.equals("Staff")) {
+            new MainStaff().setVisible(true);
+        }
+        else if (loggedUser.role.equals("Driver")) {
+            new MainDriver().setVisible(true);
+        }
+        
+    }//GEN-LAST:event_btnHomeMouseClicked
+
+    private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
+        int confirmation = JOptionPane.YES_OPTION;
+        if (JOptionPane.showConfirmDialog(rootPane, "Are you sure you want to logout?", "Confirmation Logout", confirmation) == JOptionPane.YES_OPTION) {
+            dispose();
+            new Loginpage().setVisible(true);
+        }
+    }//GEN-LAST:event_btnLogoutMouseClicked
+
+    private void jPanelMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelMainMouseClicked
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_jPanelMainMouseClicked
+
+    private void jPanelMainMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelMainMouseDragged
+        int cur_x = evt.getXOnScreen();
+        int cur_y = evt.getYOnScreen();
+        
+        this.setLocation(cur_x - mouseX, cur_y - mouseY);
+    }//GEN-LAST:event_jPanelMainMouseDragged
+
+    private void btnUpdateStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateStatusActionPerformed
+        if (order_id.equals("NULL")) {
+            JOptionPane.showMessageDialog(rootPane,"Please select a data on the table to update","Error",JOptionPane.WARNING_MESSAGE);
+        }
+        else 
+        {
+        String status = "Delievered";
+        Boolean found = false;
+        ArrayList<String> tempArray = new ArrayList<>();
+        int confirmation = JOptionPane.YES_OPTION;
+        if (JOptionPane.showConfirmDialog(rootPane, "Confirm updating the status to delivered?", "Confirmation Update", confirmation) == JOptionPane.YES_OPTION) {
+           try {
+            try (FileReader file = new FileReader("Order.txt")) {
+                Scanner reader = new Scanner(file);
+                String line;
+                String[] lineArr;
+                
+                while(reader.hasNext()){
+                    line = reader.nextLine();
+                    lineArr = line.split(";");
+                    if(lineArr[0].equals(order_id)) {
+                        found = true;
+                        tempArray.add (
+                            lineArr[0] + ";" +
+                            lineArr[1] + ";" +
+                            lineArr[2] + ";" +
+                            status + ";" +
+                            lineArr[4] + ";" +
+                            lineArr[5] + ";" +
+                            lineArr[6] + ";" +        
+                            lineArr[7] + ";" +
+                            lineArr[8] + ";" +
+                            lineArr[9]
+                        );
+                    } else {
+                        tempArray.add(line);
+                    }
+                }
+                PrintWriter pr = new PrintWriter("Order.txt");
+                for (String str : tempArray) {
+                    pr.println(str);
+                    
+                }
+                
+                pr.close();
+
+                
+                
+                file.close();
+                } catch (Exception e) { 
+                    JOptionPane.showMessageDialog(rootPane,"Error = " + e,"Error",JOptionPane.WARNING_MESSAGE);
+            }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane,"Error = " + e,"Error",JOptionPane.WARNING_MESSAGE);
+            }
+        if(!found) {
+            JOptionPane.showMessageDialog(rootPane,"Order Not Found!","Error",JOptionPane.WARNING_MESSAGE);
+        }
+        else {
+        JOptionPane.showMessageDialog(rootPane,"Stauts Updated!","Success",JOptionPane.INFORMATION_MESSAGE);
+        if (loggedUser.role.equals("Driver")) {
+            Driver_schedule();
+        } 
+        else 
+        {
+            all_schedule();
+        }
+ 
+        }
+        
+        
+        
+        }
+        }
+    }//GEN-LAST:event_btnUpdateStatusActionPerformed
+
+    private void tblScheduleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblScheduleMouseClicked
+        int row = tblSchedule.getSelectedRow();
+        order_id = tblSchedule.getModel().getValueAt(row, 0).toString();
+    }//GEN-LAST:event_tblScheduleMouseClicked
 
     /**
      * @param args the command line arguments
@@ -213,15 +475,16 @@ public class Schedule extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnHome;
+    private javax.swing.JLabel btnLogout;
+    private javax.swing.JLabel btnProfileShort;
+    public javax.swing.JButton btnUpdateStatus;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanelMain;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblSchedule;
     // End of variables declaration//GEN-END:variables
 }

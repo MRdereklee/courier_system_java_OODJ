@@ -108,6 +108,7 @@ public class Changepassword extends javax.swing.JFrame {
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-multiply-24.png"))); // NOI18N
         btnClose.setToolTipText("Close");
+        btnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCloseMouseClicked(evt);
@@ -183,9 +184,9 @@ public class Changepassword extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseMouseClicked
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        Login logged_user = new Login();
+        Loginpage logged_user = new Loginpage();
         String role = logged_user.role;
-        String username = logged_user.user_name;
+        String id = logged_user.id;
         String new_password = new String(txtNewPassword.getPassword());
         String confirm_password = new String (txtConfirmPassword.getPassword());
         
@@ -199,7 +200,7 @@ public class Changepassword extends javax.swing.JFrame {
                 while (sc.hasNext()) {
                   String temp = sc.nextLine();
                   String[] tempArr = temp.split(";");
-                  if (username.equals(tempArr[1])) {
+                  if (id.equals(tempArr[0])) {
                       tempArray.add (
                               tempArr[0] + ";" +
                               tempArr[1] + ";" +
@@ -213,8 +214,12 @@ public class Changepassword extends javax.swing.JFrame {
                               tempArr[9] + ";" +
                               tempArr[10]
                       );
+                      found = true;
                     }
-                    tempArray.add(temp);
+                  else {
+                     tempArray.add(temp); 
+                  }
+                    
                 }
                 
                 PrintWriter pr = new PrintWriter(role + ".txt");
@@ -230,6 +235,9 @@ public class Changepassword extends javax.swing.JFrame {
             catch (IOException ex) {
                 
             }
+        }
+        else {
+             JOptionPane.showMessageDialog(rootPane, "Confirmation password is different with password", "Change Password Failure", JOptionPane.WARNING_MESSAGE);   
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 

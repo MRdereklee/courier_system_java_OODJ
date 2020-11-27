@@ -1,23 +1,92 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package javaassignment;
 
-/**
- *
- * @author Khloe Lai
- */
-public class Orderpage extends javax.swing.JFrame {
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javaassignment.Orderdetails;
+import javaassignment.Profilepage;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
-    /**
-     * Creates new form Staff
-     */
+
+public class Orderpage extends javax.swing.JFrame {
+ Scanner sc_order, sc_payment;
+ BufferedReader br_order, br_payment;
+ DefaultTableModel mymodel;
+ 
+ String[]columnsName ={"Order ID","Delivery Date","Receiver Date","Status","Weight",
+                        "Receiver Name","Receiver Address","Sender Name","Sender Address",
+                        "Pay Date","Pay Method","Amount","Driver"};
+ 
     public Orderpage() {
         initComponents();
+        setVisible(true); 
+        Ordertable.setEnabled(true);
+        Ordertable();
+        btnProfileShort.setText("Hi, "+ loggedUser.user_name);
     }
+    
+    Loginpage loggedUser = new Loginpage();
+    String role = loggedUser.role;
+    
+    int mouseX;
+    int mouseY;
+    public void Ordertable(){
+        String orderfile = "Order.txt";
+        String paymentfile = "Payment.txt";
+     try {
+         br_order = new BufferedReader(new FileReader(orderfile));
+         br_payment = new BufferedReader(new FileReader(paymentfile));
+     } catch (FileNotFoundException ex) {
+         Logger.getLogger(Orderpage.class.getName()).log(Level.SEVERE, null, ex);
+     }
+            mymodel =(DefaultTableModel)Ordertable.getModel();
+            mymodel.setColumnIdentifiers(columnsName);// set the headers
 
+            //clears the table modelbefore display the data
+            mymodel.setRowCount(0);
+            Ordertable.revalidate(); //reset the Jtable
+
+            Object[] order_records = br_order.lines().toArray();
+            Object[] payment_records = br_payment.lines().toArray();
+            
+            for (int index = 0; index < order_records.length; index++){
+                String order_eachline = order_records[index].toString();
+                String[]order_row = order_eachline.split(";");
+                String payment_eachline = payment_records[index].toString();
+                String[] payment_row = payment_eachline.split(";");
+                if(order_row[0].equals(payment_row[0])) {
+                    String OrderID = order_row[0];
+                    String Delivery_date = order_row[1];
+                    String Receive_date = order_row[2];
+                    String status  = order_row[3];
+                    String Weight = order_row[4];
+                    String Receiver = order_row[5];
+                    String Receiver_add= order_row[6];
+                    String Sender = order_row[7];
+                    String Sender_add = order_row[8];
+                    String pay_date = payment_row[1];
+                    String pay_method = payment_row[2];
+                    String amount = payment_row[3];
+                    String driver = order_row[9];
+                    
+                    String[] final_row = {OrderID, Delivery_date, Receive_date, status, Weight, Receiver, Receiver_add, Sender, Sender_add, pay_date, pay_method, amount, driver};
+                    mymodel.addRow(final_row);
+                }
+                else {
+                    
+                }
+            }
+        }
+
+    Orderdetails orderdetails = new Orderdetails() ;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,26 +96,33 @@ public class Orderpage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel4 = new javax.swing.JPanel();
+        jPanelTop = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
+        Ordertable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JLabel();
+        btnProfileShort = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        btnHome = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel4.setBackground(new java.awt.Color(255, 204, 102));
-        jPanel4.setForeground(new java.awt.Color(51, 51, 255));
+        jPanelTop.setBackground(new java.awt.Color(255, 204, 102));
+        jPanelTop.setForeground(new java.awt.Color(51, 51, 255));
+        jPanelTop.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanelTopMouseDragged(evt);
+            }
+        });
+        jPanelTop.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelTopMouseClicked(evt);
+            }
+        });
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -65,37 +141,7 @@ public class Orderpage extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton2.setForeground(java.awt.Color.white);
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconbtn/save.png"))); // NOI18N
-        jButton2.setText("SAVE");
-        jButton2.setToolTipText("");
-        jButton2.setBorderPainted(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton2.setFocusCycleRoot(true);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setBackground(new java.awt.Color(0, 0, 0));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton3.setForeground(java.awt.Color.white);
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconbtn/report.png"))); // NOI18N
-        jButton3.setText("GENERATE");
-        jButton3.setToolTipText("");
-        jButton3.setBorderPainted(false);
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton3.setFocusCycleRoot(true);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Ordertable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -106,40 +152,25 @@ public class Orderpage extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jButton4.setBackground(new java.awt.Color(0, 0, 0));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton4.setForeground(java.awt.Color.white);
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconbtn/trash.png"))); // NOI18N
-        jButton4.setText("DELETE");
-        jButton4.setToolTipText("");
-        jButton4.setBorderPainted(false);
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton4.setFocusCycleRoot(true);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+        Ordertable.setRowHeight(25);
+        Ordertable.setSelectionBackground(new java.awt.Color(255, 204, 102));
+        Ordertable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OrdertableMouseClicked(evt);
             }
         });
+        jScrollPane1.setViewportView(Ordertable);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(265, 265, 265)
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 748, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,13 +178,7 @@ public class Orderpage extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton3)
-                        .addComponent(jButton2))
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton4)))
+                .addComponent(jButton1)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -162,65 +187,71 @@ public class Orderpage extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Courier Service");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-exit-24.png"))); // NOI18N
-        jLabel10.setText("Logout");
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-user-24.png"))); // NOI18N
-        jLabel20.setText("Hi, A001.");
-        jLabel20.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnLogout.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-exit-24.png"))); // NOI18N
+        btnLogout.setText("Logout");
+        btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel20MouseClicked(evt);
+                btnLogoutMouseClicked(evt);
+            }
+        });
+
+        btnProfileShort.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnProfileShort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/icons8-user-24.png"))); // NOI18N
+        btnProfileShort.setText("Hi, A001.");
+        btnProfileShort.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnProfileShortMouseClicked(evt);
             }
         });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
         jLabel11.setText("Order");
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/main (2).png"))); // NOI18N
-        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon Images/main (2).png"))); // NOI18N
+        btnHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel13MouseClicked(evt);
+                btnHomeMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanelTopLayout = new javax.swing.GroupLayout(jPanelTop);
+        jPanelTop.setLayout(jPanelTopLayout);
+        jPanelTopLayout.setHorizontalGroup(
+            jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanelTopLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelTopLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10)
+                        .addComponent(btnLogout)
                         .addGap(27, 27, 27))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGroup(jPanelTopLayout.createSequentialGroup()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanelTopLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel20)
+                .addComponent(btnProfileShort)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel13)
+                .addComponent(btnHome)
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+        jPanelTopLayout.setVerticalGroup(
+            jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTopLayout.createSequentialGroup()
+                .addGroup(jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelTopLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
+                        .addGroup(jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLogout)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGroup(jPanelTopLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -228,9 +259,9 @@ public class Orderpage extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel13))
+                .addGroup(jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnProfileShort, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHome))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -240,11 +271,11 @@ public class Orderpage extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanelTop, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -252,28 +283,87 @@ public class Orderpage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        dispose(); 
+        new Orderdetails().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnProfileShortMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProfileShortMouseClicked
+        JFrame profileFrame = new Profilepage();
+        profileFrame.setLocation(this.getX() + this.getWidth() + 10, this.getY());
+        profileFrame.setVisible(true);
+    }//GEN-LAST:event_btnProfileShortMouseClicked
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
+        if (role.equals("Admin")) {
+            this.dispose();
+            new MainAdmin().setVisible(true);
+        }
+        else if (role.equals("Staff")) {
+            this.dispose();
+            new MainStaff().setVisible(true);
+        }
+    }//GEN-LAST:event_btnHomeMouseClicked
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void OrdertableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrdertableMouseClicked
 
-    private void jLabel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseClicked
-   new Profile().setVisible(true);
-    }//GEN-LAST:event_jLabel20MouseClicked
+        int index = Ordertable.getSelectedRow();
+        
+        TableModel model = Ordertable.getModel();
+        
+        String OrderID = model.getValueAt(index,0).toString();
+        String ODelDate = model.getValueAt(index,1).toString();
+        String ORecDate = model.getValueAt(index,2).toString();
+        String OStatus = model.getValueAt(index,3).toString();
+        String OWeight = model.getValueAt(index,4).toString();
+        String ORecName = model.getValueAt(index,5).toString();
+        String ORecAdd = model.getValueAt(index,6).toString();
+        String OSendName = model.getValueAt(index,7).toString();
+        String OSendAdd = model.getValueAt(index,8).toString();
+        
+        String PayDate = model.getValueAt(index,9).toString();
+        String PayMethod = model.getValueAt(index,10).toString();
+        String PayAmount = model.getValueAt(index,11).toString();
+        
+        orderdetails.setVisible(true);
+        orderdetails.pack();
+        orderdetails.setLocationRelativeTo(null);
+        orderdetails.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        orderdetails.txtOrderid.setText(OrderID);
+        orderdetails.pickDelDate.setText(ODelDate);
+        orderdetails.pickRecDate.setText(ORecDate);
+        orderdetails.cboStatus.setSelectedItem(OStatus);
+        orderdetails.txtWeight.setText(OWeight);
+        orderdetails.txtReceiverName.setText(ORecName);
+        orderdetails.txtReceiverAddress.setText(ORecAdd);
+        orderdetails.txtSenderName.setText(OSendName);
+        orderdetails.txtSenderAddress.setText(OSendAdd);
+        
+        orderdetails.pickOpayDate.setText(PayDate);
+        orderdetails.cboPayMethod.setSelectedItem(PayMethod);
+        orderdetails.txtPayAmount.setText(PayAmount);
 
-    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
-   new MainAdmin().setVisible(true);
-    }//GEN-LAST:event_jLabel13MouseClicked
+    }//GEN-LAST:event_OrdertableMouseClicked
+
+    private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
+        int confirmation = JOptionPane.YES_OPTION;
+        if (JOptionPane.showConfirmDialog(rootPane, "Are you sure you want to logout?", "Confirmation Logout", confirmation) == JOptionPane.YES_OPTION) {
+            dispose();
+            new Loginpage().setVisible(true);
+        }
+    }//GEN-LAST:event_btnLogoutMouseClicked
+
+    private void jPanelTopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTopMouseClicked
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_jPanelTopMouseClicked
+
+    private void jPanelTopMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTopMouseDragged
+        int cur_x = evt.getXOnScreen();
+        int cur_y = evt.getYOnScreen();
+        
+        this.setLocation(cur_x - mouseX, cur_y - mouseY);
+    }//GEN-LAST:event_jPanelTopMouseDragged
 
     /**
      * @param args the command line arguments
@@ -314,19 +404,16 @@ public class Orderpage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Ordertable;
+    private javax.swing.JLabel btnHome;
+    private javax.swing.JLabel btnLogout;
+    private javax.swing.JLabel btnProfileShort;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanelTop;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

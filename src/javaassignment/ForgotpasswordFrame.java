@@ -20,13 +20,15 @@ import javax.swing.JOptionPane;
 public class ForgotpasswordFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form Login
+     * Creates new form Loginpage
      */
     public ForgotpasswordFrame() {
         initComponents();
         setLocationRelativeTo(null);
     }
-
+    int mouseX;
+    int mouseY;
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,6 +59,16 @@ public class ForgotpasswordFrame extends javax.swing.JFrame {
 
         jPanelTop.setBackground(new java.awt.Color(255, 204, 102));
         jPanelTop.setForeground(new java.awt.Color(51, 51, 255));
+        jPanelTop.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanelTopMouseDragged(evt);
+            }
+        });
+        jPanelTop.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelTopMouseClicked(evt);
+            }
+        });
 
         jPanelMain.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -339,7 +351,7 @@ public class ForgotpasswordFrame extends javax.swing.JFrame {
                 
                     pr.close();
                     JOptionPane.showMessageDialog(rootPane, "Password has been changed", "Change Password Successfully", JOptionPane.INFORMATION_MESSAGE);   
-                    new Login().setVisible(true);
+                    new Loginpage().setVisible(true);
                     this.dispose();
                 }
                 else {
@@ -413,12 +425,25 @@ public class ForgotpasswordFrame extends javax.swing.JFrame {
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.dispose();
-        new Login().setVisible(true);
+        new Loginpage().setVisible(true);
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void txtConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtConfirmPasswordActionPerformed
+
+    private void jPanelTopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTopMouseClicked
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+        
+    }//GEN-LAST:event_jPanelTopMouseClicked
+
+    private void jPanelTopMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTopMouseDragged
+        int cur_x = evt.getXOnScreen();
+        int cur_y = evt.getYOnScreen();
+        
+        this.setLocation(cur_x - mouseX, cur_y - mouseY);
+    }//GEN-LAST:event_jPanelTopMouseDragged
 
     /**
      * @param args the command line arguments

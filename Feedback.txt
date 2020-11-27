@@ -1,4 +1,0 @@
-O001,Nice2,1
-A002,vcdcwcwcw,1
-A002,vcdcwcwcw,1
-A003,ggggggggggggg,3

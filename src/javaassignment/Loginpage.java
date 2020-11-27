@@ -15,14 +15,15 @@ import javax.swing.JOptionPane;
  *
  * @author sengk
  */
-public class Login extends javax.swing.JFrame {
+public class Loginpage extends javax.swing.JFrame {
 
     /**
-     * Creates new form Login
+     * Creates new form Loginpage
      */
     public static String user_name;
     public static String role;
-    public Login() {
+    public static String id;
+    public Loginpage() {
         initComponents();
         setLocationRelativeTo(null);
         
@@ -260,6 +261,7 @@ public class Login extends javax.swing.JFrame {
                if (username.equals(tempArr[1]) && password.equals(tempArr[2])) {
                    user_name = tempArr[1];
                    role = "Admin";
+                   id = tempArr[0];
                    found = true;
                    JOptionPane.showMessageDialog(rootPane, "Welcome Admin, " +user_name, "Login Successful", JOptionPane.INFORMATION_MESSAGE );
                    new MainAdmin().setVisible(true);
@@ -268,44 +270,47 @@ public class Login extends javax.swing.JFrame {
                    break;
                }
            }
-            
-            File staffFile = new File("Staff.txt");
-            Scanner sc_staff = new Scanner(staffFile);
-           
-            while (sc_staff.hasNext()) {
-               String temp = sc_staff.nextLine();
-               String[] tempArr = temp.split(";");
-               if (username.equals(tempArr[1]) && password.equals(tempArr[2])) {
-                   user_name = tempArr[1];
-                   role = "Staff";
-                   found = true;
-                   JOptionPane.showMessageDialog(rootPane, "Welcome Staff, " +user_name, "Login Successful", JOptionPane.INFORMATION_MESSAGE );
-                   new MainAdmin().setVisible(true);
-                   this.dispose();
-                   sc_staff.close();
-                   break;
+            if (!found) {
+                File staffFile = new File("Staff.txt");
+                Scanner sc_staff = new Scanner(staffFile);
+
+                while (sc_staff.hasNext()) {
+                   String temp = sc_staff.nextLine();
+                   String[] tempArr = temp.split(";");
+                   if (username.equals(tempArr[1]) && password.equals(tempArr[2])) {
+                       user_name = tempArr[1];
+                       role = "Staff";
+                       id = tempArr[0];
+                       found = true;
+                       JOptionPane.showMessageDialog(rootPane, "Welcome Staff, " +user_name, "Login Successful", JOptionPane.INFORMATION_MESSAGE );
+                       new MainStaff().setVisible(true);
+                       this.dispose();
+                       sc_staff.close();
+                       break;
+                   }
                }
-           }
-            
-            
-            File driverFile = new File("Driver.txt");
-            Scanner sc_driver = new Scanner(driverFile);
-           
-            while (sc_driver.hasNext()) {
-               String temp = sc_driver.nextLine();
-               String[] tempArr = temp.split(";");
-               if (username.equals(tempArr[1]) && password.equals(tempArr[2])) {
-                   user_name = tempArr[1];
-                   role = "Driver";
-                   found = true;
-                   JOptionPane.showMessageDialog(rootPane, "Welcome Driver,  " +user_name, "Login Successful", JOptionPane.INFORMATION_MESSAGE );
-                   new MainStaff().setVisible(true);
-                   this.dispose();
-                   sc_driver.close();
-                   break;
+            }
+            if (!found) {
+                File driverFile = new File("Driver.txt");
+                Scanner sc_driver = new Scanner(driverFile);
+
+                while (sc_driver.hasNext()) {
+                   String temp = sc_driver.nextLine();
+                   String[] tempArr = temp.split(";");
+                   if (username.equals(tempArr[1]) && password.equals(tempArr[2])) {
+                       user_name = tempArr[1];
+                       role = "Driver";
+                       id = tempArr[0];
+                       found = true;
+                       JOptionPane.showMessageDialog(rootPane, "Welcome Driver,  " +user_name, "Login Successful", JOptionPane.INFORMATION_MESSAGE );
+                       new MainDriver().setVisible(true);
+                       this.dispose();
+                       sc_driver.close();
+                       break;
+                   }
                }
-           }
-          
+            }
+            
            if (!found) {
                 JOptionPane.showMessageDialog(rootPane, "Incorrect Username or Password", "Unable to login", JOptionPane.ERROR_MESSAGE);
                 txtUsername.grabFocus();
@@ -397,20 +402,21 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Loginpage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Loginpage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Loginpage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Loginpage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new Loginpage().setVisible(true);
                 
             }
         });
