@@ -386,6 +386,7 @@ public class MainStaff extends javax.swing.JFrame {
         this.dispose();
         Schedule scheduleFrame = new Schedule();
         scheduleFrame.btnUpdateStatus.setEnabled(false);
+        scheduleFrame.setVisible(true);
     }//GEN-LAST:event_btnScheduleMouseClicked
 
     /**

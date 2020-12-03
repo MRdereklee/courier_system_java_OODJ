@@ -524,7 +524,7 @@ public class Reportpage extends javax.swing.JFrame {
         MessageFormat title = new MessageFormat("Employee Report");
         MessageFormat footer = new MessageFormat("Courier Service System");
         try{
-            tblOrder.print(JTable.PrintMode.FIT_WIDTH,title,footer);
+            tblEmp.print(JTable.PrintMode.FIT_WIDTH,title,footer);
         }
         catch(PrinterException e){
            JOptionPane.showMessageDialog(rootPane,"Unable to Print!"+e.getMessage());

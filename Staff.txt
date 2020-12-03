@@ -1,1 +1,1 @@
-S1;GeneNg;20geneng@hotmail.com;Gene;Ng;20;0;geneng@hotmail.com;012344567;300.0;Staff
+S4;Staff1;123;Staff;1;20;0;staff1@hotmail.com;012333456;100.0;Staff

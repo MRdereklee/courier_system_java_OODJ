@@ -262,7 +262,9 @@ public class ForgotpasswordFrame extends javax.swing.JFrame {
         String confirm_password = new String (txtConfirmPassword.getPassword());
         String role = "";
         
-         ArrayList<String> tempArray = new ArrayList<>();
+        ArrayList<String> tempArrayAdmin = new ArrayList<>();
+        ArrayList<String> tempArrayStaff = new ArrayList<>();
+        ArrayList<String> tempArrayDriver = new ArrayList<>();
         if (new_password.equals(confirm_password)) {
             try {
                 Boolean found = false;
@@ -273,7 +275,7 @@ public class ForgotpasswordFrame extends javax.swing.JFrame {
                   String temp = sc_admin.nextLine();
                   String[] tempArr = temp.split(";");
                   if (check_email.equals(tempArr[7])) {
-                      tempArray.add (
+                      tempArrayAdmin.add (
                               tempArr[0] + ";" +
                               tempArr[1] + ";" +
                               new_password + ";" +
@@ -288,8 +290,10 @@ public class ForgotpasswordFrame extends javax.swing.JFrame {
                       );
                       found = true;
                       role = tempArr[10];
-                    }
-                    tempArray.add(temp);
+                    } else {
+                     tempArrayAdmin.add(temp); 
+                  }
+                    
                 }
                 File staffFile = new File("Staff.txt");
                 Scanner sc_staff = new Scanner(staffFile);
@@ -298,7 +302,7 @@ public class ForgotpasswordFrame extends javax.swing.JFrame {
                   String temp = sc_staff.nextLine();
                   String[] tempArr = temp.split(";");
                   if (check_email.equals(tempArr[7])) {
-                      tempArray.add (
+                      tempArrayStaff.add (
                               tempArr[0] + ";" +
                               tempArr[1] + ";" +
                               new_password + ";" +
@@ -313,8 +317,9 @@ public class ForgotpasswordFrame extends javax.swing.JFrame {
                       );
                       found = true;
                       role = tempArr[10];
-                    }
-                    tempArray.add(temp);
+                    } else {
+                      tempArrayStaff.add(temp);
+                  }
                 }
                 
                 File driverFile = new File("Driver.txt");
@@ -324,7 +329,7 @@ public class ForgotpasswordFrame extends javax.swing.JFrame {
                   String temp = sc_driver.nextLine();
                   String[] tempArr = temp.split(";");
                   if (check_email.equals(tempArr[7])) {
-                      tempArray.add (
+                      tempArrayDriver.add (
                               tempArr[0] + ";" +
                               tempArr[1] + ";" +
                               new_password + ";" +
@@ -339,15 +344,29 @@ public class ForgotpasswordFrame extends javax.swing.JFrame {
                       );
                       found = true;
                       role = tempArr[10];
-                    }
-                    tempArray.add(temp);
+                    } else {
+                    tempArrayDriver.add(temp);
+                  }
                 }
                 
                 if (found) {
                     PrintWriter pr = new PrintWriter(role + ".txt");
-                    for (String str : tempArray) {
+                    if (role.equals("Admin")) {
+                       for (String str : tempArrayAdmin) {
+                        pr.println(str);   
+                    } 
+                    }
+                    else if (role.equals("Staff")){
+                        for (String str : tempArrayStaff) {
                         pr.println(str);   
                     }
+                    }
+                    else if (role.equals("Driver")) {
+                        for (String str : tempArrayDriver) {
+                        pr.println(str);   
+                    } 
+                    }
+                    
                 
                     pr.close();
                     JOptionPane.showMessageDialog(rootPane, "Password has been changed", "Change Password Successfully", JOptionPane.INFORMATION_MESSAGE);   

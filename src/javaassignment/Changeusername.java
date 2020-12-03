@@ -234,8 +234,9 @@ public class Changeusername extends javax.swing.JFrame {
                 }
                 
                 pr.close();
+                logged_user.user_name = txtNewUsername.getText();
                 JOptionPane.showMessageDialog(rootPane, "Username has been changed", "Change Username Successfully", JOptionPane.INFORMATION_MESSAGE);   
-
+                
                 this.dispose();
                 new Profilepage().setVisible(true);
             }

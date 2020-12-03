@@ -1,2 +1,1 @@
-D4;weilok;weilok;Wong;WeiLok;20;0;weilok@hotmail.com;0129393939;100.0;Driver
-
+D6;Driver1;123;Driver;1;20;0;driver1@hotmail.com;012345678;300.0;Driver

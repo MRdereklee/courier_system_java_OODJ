@@ -288,6 +288,8 @@ public class Feedbackdetails extends javax.swing.JFrame {
                 build.append(data[1]);
                 build.append(";");
                 build.append(data[2]);
+                build.append(";");
+                build.append(data[3]);
             
 
                 

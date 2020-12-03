@@ -263,7 +263,6 @@ public class Staffpage extends javax.swing.JFrame {
             for (int index = 0; index < records.size(); index++){
                 String eachline = records.get(index);
                 String[] data = eachline.split(";");
-
                 String tb_id = data[0];
                 String tb_username = data[1];
                 String tb_fname = data[3];
@@ -290,7 +289,7 @@ public class Staffpage extends javax.swing.JFrame {
 
         }
         catch (IOException ex) {
-
+            JOptionPane.showMessageDialog(rootPane, ex, "Change Username Failure", JOptionPane.WARNING_MESSAGE);   
         }
     }
 

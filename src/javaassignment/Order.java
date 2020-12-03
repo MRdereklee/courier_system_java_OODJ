@@ -33,7 +33,6 @@ public class Order {
     }
     public Order(String OID, String PayDate, String PayMethod, String PayAmount) {
         this.OPayment = new Payment(OID, PayDate, PayMethod, PayAmount);
-        System.out.println();
     }
     public Order(String OrderID, String ODelDate, String ORecDate, String OStatus, String OWeight, String ORecName, String ORecAdd, String OSendName, String OSendAdd, Driver ODriver) {
         this.OrderID = OrderID;

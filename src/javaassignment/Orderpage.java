@@ -342,7 +342,8 @@ public class Orderpage extends javax.swing.JFrame {
         orderdetails.pickOpayDate.setText(PayDate);
         orderdetails.cboPayMethod.setSelectedItem(PayMethod);
         orderdetails.txtPayAmount.setText(PayAmount);
-
+        
+        dispose();
     }//GEN-LAST:event_OrdertableMouseClicked
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked

@@ -508,7 +508,7 @@ public class Orderdetails extends javax.swing.JFrame {
      
      Formatter fmt =null;
         try{
-            fmt = new Formatter(new File("PayOrder.txt")) ;
+            fmt = new Formatter(new File("Order.txt")) ;
             for (int i = 0; i < Order.size(); i++) {
                 String [] data =Order.get(i);
                 StringBuilder build = new StringBuilder();
@@ -531,13 +531,6 @@ public class Orderdetails extends javax.swing.JFrame {
                 build.append(data[8]);
                 build.append(";");
                 build.append(data[9]);
-                build.append(";");
-                build.append(data[10]);
-                build.append(";");
-                build.append(data[11]);
-                build.append(";");
-                build.append(data[12]);
-    
 
                 if ( i != Order.size() -1){
                     fmt.format("%s\n",build.toString());
@@ -603,10 +596,10 @@ public class Orderdetails extends javax.swing.JFrame {
             
 
                 if ( i != Order.size() -1){
-                    fmt.format("%s\n",build.toString());
+                    formt.format("%s\n",build.toString());
                 }
                 else {
-                    fmt.format("%s",build.toString()); 
+                    formt.format("%s",build.toString()); 
                 }
             }
         }catch (FileNotFoundException e){
@@ -653,9 +646,6 @@ public class Orderdetails extends javax.swing.JFrame {
                 data[6]=txtReceiverAddress.getText();
                 data[7]=txtSenderName.getText();
                 data[8]=txtSenderAddress.getText();
-                data[9]=pickOpayDate.getText();
-                data[10]=pay;
-                data[11]=txtPayAmount.getText();
             }
             Order.add(data);
             
@@ -670,7 +660,7 @@ public class Orderdetails extends javax.swing.JFrame {
         
         Formatter fmt =null;
         try{
-            fmt = new Formatter(new File("PayOrder.txt")) ;
+            fmt = new Formatter(new File("Order.txt")) ;
             for (int i = 0; i < Order.size(); i++) {
                 String [] data =Order.get(i);
                 StringBuilder build = new StringBuilder();
@@ -693,13 +683,6 @@ public class Orderdetails extends javax.swing.JFrame {
                 build.append(data[8]);
                 build.append(";");
                 build.append(data[9]);
-                build.append(";");
-                build.append(data[10]);
-                build.append(";");
-                build.append(data[11]);
-                build.append(";");
-                build.append(data[12]);
-
                 
                 if ( i != Order.size() -1){
                     fmt.format("%s\n",build.toString());
@@ -853,13 +836,13 @@ public class Orderdetails extends javax.swing.JFrame {
             pw.println(order.getOrderID()+ ";" + order.getODelDate() + ";" + order.getORecDate()
                         + ";" + order.getOStatus()+ ";" + order.getOWeight()
                         + ";" + order.getORecName()+ ";" + order.getORecAdd()
-                        + ";" + order.getOSendName()+ ";" + order.getOSendAdd() + ";" + order.getONoDriver());
+                        + ";" + order.getOSendName()+ ";" + order.getOSendAdd() + ";" + order.getONoDriver() + "\n");
             pw.close();
             
             
             FileWriter mypayment = new FileWriter("Payment.txt",true);
             PrintWriter printw = new PrintWriter(mypayment);
-            printw.println(payment.getOID()+ ";" + payment.getPayDate()+ ";" + payment.getPayMethod()+ ";" + payment.getPayAmount());
+            printw.println(payment.getOID()+ ";" + payment.getPayDate()+ ";" + payment.getPayMethod()+ ";" + payment.getPayAmount() + "\n");
             
             printw.close();
              JOptionPane.showMessageDialog(rootPane, "Order details added", "Add Successful", JOptionPane.INFORMATION_MESSAGE);
@@ -894,6 +877,8 @@ public class Orderdetails extends javax.swing.JFrame {
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
         dispose (); 
+        Orderpage odrpage = new Orderpage();
+        odrpage.setVisible(true);
     }//GEN-LAST:event_btnCloseMouseClicked
 
     private void MainWhitePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainWhitePanelMouseClicked

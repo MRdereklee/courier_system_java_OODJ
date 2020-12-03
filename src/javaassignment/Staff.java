@@ -41,7 +41,7 @@ public class Staff extends User {
         prefs = Preferences.userRoot().node(this.getClass().getName());
         staff_id_incremental = new AtomicInteger(prefs.getInt("autoincremental_stafft", 1));
         int id = staff_id_incremental.incrementAndGet();
-        prefs.putInt("autoincremental", staff_id_incremental.get());
+        prefs.putInt("autoincremental_stafft", staff_id_incremental.get());
         
         String ID = Integer.toString(id);
         return "S" + ID;

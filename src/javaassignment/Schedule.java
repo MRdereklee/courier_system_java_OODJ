@@ -181,7 +181,7 @@ public class Schedule extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Order Id", "Status", "Receive Date", "Receiver Name", "Receiver Address", "Driver Name", "DriverGender", "Driver Email", "Driver Phone Number"
+                "Order Id", "Receive Date", "Receiver Name", "Receiver Address", "Status", "Driver Name", "DriverGender", "Driver Email", "Driver Phone Number"
             }
         ) {
             boolean[] canEdit = new boolean [] {
