@@ -19,7 +19,7 @@ public class MainAdmin extends javax.swing.JFrame {
      */
     public MainAdmin() {
         initComponents();
-        btnProfileShort.setText("Hi, "+ loggedUser.user_name);
+            btnProfileShort.setText("Hi, "+ loggedUser.user_name);
     }
     Loginpage loggedUser = new Loginpage();
     int mouseX;
